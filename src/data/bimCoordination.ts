@@ -48,4 +48,3 @@ export function getBimArchiveCategory(language: LanguageCode): CategoryBuilding 
  const c=getBimCopy(language);
  return {id:'bim-coordination',categoryNumber:'06',title:c.category,englishTitle:'BIM Coordination',description:c.portfolioDescription,iconName:'Cpu',position:{x:0,y:0},projects:[getBimPortfolio(language)]};
 }
-
