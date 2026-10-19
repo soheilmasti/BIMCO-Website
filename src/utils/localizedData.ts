@@ -1,3 +1,4 @@
+import { getBimPortfolio } from '../data/bimCoordination';
 import { localizeText, localizeContent } from './localizeText';
 import { CategoryBuilding, Project, ResumeProfile } from '../types';
 import projectStatuses from './projectStatuses.json';
@@ -2152,6 +2153,7 @@ export function getLocalizedTypology(typology: string, lang: LanguageCode): stri
 // -----------------------------------------------------------------------------
 
 export function getLocalizedProject(project: Project, lang: LanguageCode): Project {
+  if (project.id === 'bim-coordinator-portfolio') return getBimPortfolio(lang);
   const trans = PROJECT_TRANSLATIONS[project.id];
   if (!trans) {
     return {

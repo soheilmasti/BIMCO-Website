@@ -1,3 +1,4 @@
+import { getBimCopy } from '../data/bimCoordination';
 import { localizeText } from '../utils/localizeText';
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -29,7 +30,8 @@ export const ResumeProfileView: React.FC<ResumeProfileViewProps> = ({
 }) => {
   const t = TRANSLATIONS[currentLanguage] || TRANSLATIONS.en;
   const isRTL = currentLanguage === 'fa';
-  const resume = getLocalizedResume(currentLanguage);
+  const baseResume = getLocalizedResume(currentLanguage);
+  const resume = { ...baseResume, competencies: [...baseResume.competencies, { category: getBimCopy(currentLanguage).skillsTitle, skills: ['Python', 'Dynamo / Revit API', 'C# / .NET', 'FastAPI / WebSockets', 'HTML / CSS / JavaScript', 'JSON / CSV'] }] };
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>

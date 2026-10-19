@@ -1,3 +1,4 @@
+import { getBimCopy } from '../data/bimCoordination';
 import { localizeText } from '../utils/localizeText';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -274,7 +275,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </span>
                   </div>
                   <div>
-                    <span className="text-gray-400 block text-[10px] font-medium">{t.area}</span>
+                    <span className="text-gray-400 block text-[10px] font-medium">{project.portfolioPdfUrl ? getBimCopy(currentLanguage).documentLabel : t.area}</span>
                     <span className="font-semibold text-gray-800 flex items-center gap-1 mt-0.5">
                       <Maximize2 className="w-3.5 h-3.5 text-gray-500 shrink-0" />
                       <span>{project.area}</span>
@@ -345,6 +346,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               </div>
 
               {/* Action Buttons */}
+              {project.portfolioPdfUrl && <div className="flex flex-wrap gap-3 mb-4">
+                <a href={project.portfolioPdfUrl} download className="bg-blue-600 text-white px-5 py-3 rounded-2xl font-bold text-sm">{getBimCopy(currentLanguage).download}</a>
+                <a href={project.caseStudyUrl} className="bg-slate-100 text-slate-800 px-5 py-3 rounded-2xl font-bold text-sm">{getBimCopy(currentLanguage).nav}</a>
+              </div>}
               <div className="mt-5 pt-3.5 border-t border-gray-100 flex items-center gap-3">
                 <button
                   onClick={() => { sound.playClick(); onClose(); }}

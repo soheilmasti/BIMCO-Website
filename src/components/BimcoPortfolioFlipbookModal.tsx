@@ -1,3 +1,4 @@
+import { getBimCopy, BIM_PORTFOLIO_PDF } from '../data/bimCoordination';
 import { localizeText, localizeContent } from '../utils/localizeText';
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { PageFlip } from 'page-flip';
@@ -22,7 +23,7 @@ import {
 import { sound } from '../utils/audio';
 import { LanguageCode } from '../utils/i18n';
 
-export type PortfolioVolumeKey = 'villas' | 'apartments' | 'urban';
+export type PortfolioVolumeKey = 'villas' | 'apartments' | 'urban' | 'bim-coordinator';
 
 export interface VolumeShortcut {
   label: string;
@@ -32,6 +33,7 @@ export interface VolumeShortcut {
 export interface VolumeConfig {
   id: PortfolioVolumeKey;
   totalPages: number;
+  pageAspectRatio?: number;
   pdfUrl: string;
   pdfDownloadName: string;
   pdfSizeText: string;
@@ -47,6 +49,17 @@ export interface VolumeConfig {
 }
 
 export const PORTFOLIO_VOLUMES: Record<PortfolioVolumeKey, VolumeConfig> = {
+  'bim-coordinator': {
+    id: 'bim-coordinator', totalPages: 13, pageAspectRatio: 297 / 210,
+    pdfUrl: BIM_PORTFOLIO_PDF, pdfDownloadName: 'Soheil_Masti_BIM_Coordinator_Portfolio.pdf',
+    pdfSizeText: '3.8 MB', pagesFolder: '/portfolios/bim-coordinator/book_pages',
+    icon: <BookOpen className="w-4 h-4" />,
+    translations: Object.fromEntries((['en', 'es', 'fa', 'ca', 'fr', 'de', 'it'] as LanguageCode[]).map(lang => {
+      const c = getBimCopy(lang);
+      return [lang, { numberText: 'IV', badge: 'BIM', title: c.portfolioTitle, description: c.portfolioDescription,
+        shortcuts: [{ label: c.portfolioTitle, page: 0 }, { label: c.projectTitle, page: 2 }, { label: c.skillsTitle, page: 11 }] }];
+    })),
+  },
   villas: {
     id: 'villas',
     totalPages: 32,
@@ -389,7 +402,7 @@ interface BimcoPortfolioFlipbookModalProps {
   currentLanguage?: LanguageCode;
 }
 
-export function computeOptimalBookSize(winW: number, winH: number) {
+export function computeOptimalBookSize(winW: number, winH: number, pageAspectRatio = 8 / 9) {
   const isPortrait = winW < 768;
   const verticalReserved = winW < 640 ? 135 : 155;
   const horizontalReserved = winW < 640 ? 16 : 48;
@@ -398,7 +411,7 @@ export function computeOptimalBookSize(winW: number, winH: number) {
   const availH = Math.max(250, winH - verticalReserved);
 
   if (isPortrait) {
-    const ratio = 8 / 9; // Single page 8:9 ratio
+    const ratio = pageAspectRatio;
     let h = availH;
     let w = Math.round(h * ratio);
     if (w > availW) {
@@ -407,7 +420,7 @@ export function computeOptimalBookSize(winW: number, winH: number) {
     }
     return { bookW: w, bookH: h, pageW: w, pageH: h, isPortrait: true };
   } else {
-    const ratio = 16 / 9; // 2-page spread 16:9 ratio
+    const ratio = pageAspectRatio * 2;
     let h = Math.min(1080, availH);
     let w = Math.round(h * ratio);
     if (w > Math.min(1920, availW)) {
@@ -432,11 +445,11 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   const flipBookInstance = useRef<PageFlip | null>(null);
 
   const [activeVolume, setActiveVolume] = useState<PortfolioVolumeKey>(initialVolume);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const currentPageRef = useRef<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(initialVolume === 'bim-coordinator' ? 0 : 1);
+  const currentPageRef = useRef<number>(initialVolume === 'bim-coordinator' ? 0 : 1);
   const [bookSize, setBookSize] = useState(() => {
     if (typeof window !== 'undefined') {
-      return computeOptimalBookSize(window.innerWidth, window.innerHeight);
+      return computeOptimalBookSize(window.innerWidth, window.innerHeight, PORTFOLIO_VOLUMES[initialVolume].pageAspectRatio);
     }
     return { bookW: 1120, bookH: 630, pageW: 560, pageH: 630, isPortrait: false };
   });
@@ -451,7 +464,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   // Resize listener to recalculate optimal book dimensions
   useEffect(() => {
     const handleResize = () => {
-      const newSize = computeOptimalBookSize(window.innerWidth, window.innerHeight);
+      const newSize = computeOptimalBookSize(window.innerWidth, window.innerHeight, PORTFOLIO_VOLUMES[activeVolume].pageAspectRatio);
       setBookSize(prev => {
         if (Math.abs(prev.bookW - newSize.bookW) > 6 || Math.abs(prev.bookH - newSize.bookH) > 6) {
           return newSize;
@@ -460,28 +473,29 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
       });
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     document.addEventListener('fullscreenchange', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('fullscreenchange', handleResize);
     };
-  }, []);
+  }, [activeVolume]);
 
   // Sync active volume with initialVolume prop if provided
   useEffect(() => {
     if (initialVolume && PORTFOLIO_VOLUMES[initialVolume]) {
       setActiveVolume(initialVolume);
-      setCurrentPage(1);
-      currentPageRef.current = 1;
+      setCurrentPage(initialVolume === 'bim-coordinator' ? 0 : 1);
+      currentPageRef.current = initialVolume === 'bim-coordinator' ? 0 : 1;
     }
   }, [initialVolume]);
 
   // Reset to Spread 1 (pages 2 & 3: Manifesto & Index) whenever modal opens
   useEffect(() => {
     if (isOpen) {
-      setCurrentPage(1);
-      currentPageRef.current = 1;
+      setCurrentPage(initialVolume === 'bim-coordinator' ? 0 : 1);
+      currentPageRef.current = initialVolume === 'bim-coordinator' ? 0 : 1;
     }
   }, [isOpen]);
 
@@ -606,7 +620,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
         };
     }
   }, [langKey]);
-  const ui = localizeContent(baseUi, currentLanguage);
+  const localizedUi = localizeContent(baseUi, currentLanguage);
+  const ui = activeVolume === 'bim-coordinator' ? { ...localizedUi, studioSubtitle: getBimCopy(currentLanguage).portfolioTitle, leadership: 'Soheil Masti Farashi' } : localizedUi;
 
   // List of all 32 page image URLs for active volume with cache-buster
   const CACHE_KEY = useMemo(() => `v20260926_hd_${Date.now().toString(36)}`, []);
@@ -794,8 +809,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   const handleSwitchVolume = useCallback((volKey: PortfolioVolumeKey) => {
     if (volKey === activeVolume) return;
     sound.playClick();
-    setCurrentPage(1);
-    currentPageRef.current = 1;
+    setCurrentPage(volKey === 'bim-coordinator' ? 0 : 1);
+    currentPageRef.current = volKey === 'bim-coordinator' ? 0 : 1;
     setActiveVolume(volKey);
   }, [activeVolume]);
 
@@ -882,7 +897,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* 1. TOP HEADER & STUDIO IDENTITY */}
-      <header className="px-3 sm:px-6 py-2.5 bg-slate-950/90 border-b border-white/10 flex items-center justify-between gap-2 shrink-0 z-20 shadow-md">
+      <header className="px-3 sm:px-6 py-2.5 bg-slate-950/90 border-b border-white/10 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 shrink-0 z-20 shadow-md">
         {/* Left: Studio Barcelona & Logo (Click -> Return to Home / First Page) */}
         <button
           onClick={() => {
@@ -912,8 +927,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
         </button>
 
         {/* Center: Volume Selector Buttons */}
-        <div className="flex items-center gap-1 sm:gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
-          {(['villas', 'apartments', 'urban'] as PortfolioVolumeKey[]).map((volKey) => {
+        <div className="order-3 sm:order-none w-full sm:w-auto flex items-center gap-1 sm:gap-2 bg-white/5 p-1 rounded-xl border border-white/10 overflow-x-auto shrink-0">
+          {(['villas', 'apartments', 'urban', 'bim-coordinator'] as PortfolioVolumeKey[]).map((volKey) => {
             const v = PORTFOLIO_VOLUMES[volKey];
             const vLoc = localizeContent(v.translations[langKey] || v.translations.en, currentLanguage);
             const isActive = activeVolume === volKey;
@@ -921,7 +936,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
               <button
                 key={volKey}
                 onClick={() => handleSwitchVolume(volKey)}
-                className={`flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
+                className={`shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'bg-amber-600 text-white shadow-md shadow-amber-900/40 border border-amber-400'
                     : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -1003,7 +1018,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
       </header>
 
       {/* Volume Info Strip (Sub-header) */}
-      <div className="px-4 py-1.5 bg-slate-900/70 border-b border-white/5 flex items-center justify-between text-xs text-slate-300 font-mono">
+      <div className="px-4 py-1.5 bg-slate-900/70 border-b border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300 font-mono">
         <div className="flex items-center gap-2">
           <BookOpen className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span className="font-bold text-amber-300">{volLocalized.numberText}:</span>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header } from './components/Header';
 import { ThreeDClayCanvas } from './components/ThreeDClayCanvas';
+import { getBimArchiveCategory, getBimPortfolio } from './data/bimCoordination';
 import { MasterIndexView } from './components/MasterIndexView';
 import { ResumeProfileView } from './components/ResumeProfileView';
 import { DublinTechHubShowcase } from './components/DublinTechHubShowcase';
@@ -35,7 +36,7 @@ export const App: React.FC = () => {
   const [isAiBoosterModalOpen, setIsAiBoosterModalOpen] = useState(false);
   const [isKnowledgeHubOpen, setIsKnowledgeHubOpen] = useState(false);
   const [isFlipbookOpen, setIsFlipbookOpen] = useState(false);
-  const [flipbookVolume, setFlipbookVolume] = useState<'villas' | 'apartments' | 'urban'>('villas');
+  const [flipbookVolume, setFlipbookVolume] = useState<'villas' | 'apartments' | 'urban' | 'bim-coordinator'>('villas');
   const [whatsAppInitialMessage, setWhatsAppInitialMessage] = useState('');
   const [lightingMode, setLightingMode] = useState<'day' | 'sunset' | 'night'>('day');
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
@@ -115,7 +116,7 @@ export const App: React.FC = () => {
 
       if (urlParams.get('flipbook') === 'true' || urlParams.get('portfolio') === 'true' || urlParams.get('book') === 'true') {
         const vol = urlParams.get('vol') || urlParams.get('volume');
-        if (vol === 'apartments' || vol === 'urban' || vol === 'villas') {
+        if (vol === 'apartments' || vol === 'urban' || vol === 'villas' || vol === 'bim-coordinator') {
           setFlipbookVolume(vol);
         }
         setIsFlipbookOpen(true);
@@ -123,7 +124,9 @@ export const App: React.FC = () => {
 
       // Deep link direct project view
       const projectParam = urlParams.get('project') || urlParams.get('p');
-      if (projectParam) {
+      if (projectParam === 'bim-coordinator-portfolio') {
+        setSelectedProject(getBimPortfolio(language));
+      } else if (projectParam) {
         for (const cat of categories) {
           const found = cat.projects.find(p => p.id === projectParam);
           if (found) {
@@ -175,6 +178,14 @@ export const App: React.FC = () => {
     return getLocalizedCategories(categories, language);
   }, [categories, language]);
 
+  const archiveCategories = useMemo(() => [...localizedCategories, getBimArchiveCategory(language)], [localizedCategories, language]);
+
+  useEffect(() => {
+    if (settings.activeView === 'bim-outsourcing' && window.location.hash === '#bim-coordinator-portfolio') {
+      document.getElementById('bim-coordinator-portfolio')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [settings.activeView]);
+
   const activeLocalizedCategory = useMemo(() => {
     return selectedCategory ? getLocalizedCategory(selectedCategory, language) : null;
   }, [selectedCategory, language]);
@@ -193,7 +204,7 @@ export const App: React.FC = () => {
 
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const isRTL = language === 'fa';
-  const totalProjectsCount = localizedCategories.reduce((acc, cat) => acc + cat.projects.length, 0);
+  const totalProjectsCount = archiveCategories.reduce((acc, cat) => acc + cat.projects.length, 0);
   const isOutsideHome = settings.activeView !== '3d';
   const isIntroActive = settings.activeView === '3d' && !hasEntered3D;
 
@@ -214,7 +225,7 @@ export const App: React.FC = () => {
           onOpenKnowledgeHub={() => setIsKnowledgeHubOpen(true)}
           onOpenFlipbook={() => setIsFlipbookOpen(true)}
           totalProjectsCount={totalProjectsCount}
-          categoriesCount={localizedCategories.length}
+          categoriesCount={archiveCategories.length}
           currentLanguage={language}
           onLanguageChange={handleLanguageChange}
         />
@@ -224,7 +235,7 @@ export const App: React.FC = () => {
       <main className="w-full h-full">
         {settings.activeView === 'grid' && (
           <MasterIndexView
-            categories={localizedCategories}
+            categories={archiveCategories}
             onSelectProject={(proj) => setSelectedProject(proj)}
             onBackToMaquette={handleResetToHome}
             currentLanguage={language}
@@ -249,6 +260,7 @@ export const App: React.FC = () => {
         {settings.activeView === 'bim-outsourcing' && (
           <BimOutsourcingSection
             language={language}
+            onOpenCoordinatorPortfolio={() => { setFlipbookVolume('bim-coordinator'); setIsFlipbookOpen(true); }}
             onNavigateToDublinBim={() => handleUpdateSettings({ activeView: 'dublin-bim-audit' })}
             onNavigateToClientPortal={() => handleUpdateSettings({ activeView: 'client-portal' })}
             onNavigateToPartners={() => handleUpdateSettings({ activeView: 'partners' })}

@@ -14,6 +14,8 @@ export interface Project {
   plans?: string[];
   concept: string;
   features?: string[];
+  portfolioPdfUrl?: string;
+  caseStudyUrl?: string;
   model3dUrl?: string; // Optional GLB model URL for 3D inspection
   bimSpecs?: {
     lodLevel?: string;

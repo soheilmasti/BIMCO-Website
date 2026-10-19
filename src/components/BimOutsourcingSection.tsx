@@ -1,3 +1,4 @@
+import { BimCoordinatorPortfolioSection } from './BimCoordinatorPortfolioSection';
 import { localizeText } from '../utils/localizeText';
 import React, { useState } from 'react';
 import { 
@@ -27,6 +28,7 @@ import { sound } from '../utils/audio';
 
 interface BimOutsourcingSectionProps {
   language: LanguageCode;
+  onOpenCoordinatorPortfolio: () => void;
   onNavigateToDublinBim?: () => void;
   onNavigateToClientPortal: () => void;
   onNavigateToPartners?: () => void;
@@ -37,6 +39,7 @@ interface BimOutsourcingSectionProps {
 
 export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
   language,
+  onOpenCoordinatorPortfolio,
   onNavigateToDublinBim,
   onNavigateToClientPortal,
   onNavigateToPartners,
@@ -150,6 +153,8 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
           </div>
         ))}
       </section>
+
+      <BimCoordinatorPortfolioSection language={language} onOpenPortfolio={onOpenCoordinatorPortfolio} onContact={onOpenWhatsApp} />
 
       {/* 3-Way Delivery Methods Comparison: Security, Overhead & Risk */}
       <section className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl mb-16 relative overflow-hidden">
