@@ -220,7 +220,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-gray-900 pt-20 pb-28 px-4 sm:px-6 lg:px-12 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#f5f6f8] text-gray-900 pt-20 pb-28 px-4 sm:px-6 lg:px-12 selection:bg-blue-600 selection:text-white">
       <div className="max-w-6xl mx-auto space-y-12">
 
         {/* Top Breadcrumb & Return to Maquette */}
@@ -308,9 +308,9 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
 
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
               {isRTL ? (
-                <>به شبکه همکاران و متخصصین <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{localizeText("BIM و معماری", currentLanguage)}</span> بپیوندید</>
+                <>{localizeText("به شبکه همکاران و متخصصین", currentLanguage)}{' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{localizeText("BIM و معماری", currentLanguage)}</span> {' '}{localizeText("بپیوندید", currentLanguage)}</>
               ) : (
-                <>{localizeText("Join Our", currentLanguage)}<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{localizeText("Architectural & BIM", currentLanguage)}</span> {localizeText("Partner Network", currentLanguage)}</>
+                <>{localizeText("Join Our", currentLanguage)}{' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">{localizeText("Architectural & BIM", currentLanguage)}</span> {localizeText("Partner Network", currentLanguage)}</>
               )}
             </h1>
 
@@ -482,7 +482,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                     'ISO 19650 CDE Lead'
                   ].map((skill, idx) => (
                     <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-lg bg-white/10 text-gray-200 border border-white/10">
-                      {skill}
+                      {localizeText(skill, currentLanguage)}
                     </span>
                   ))}
                 </div>
@@ -579,7 +579,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                     'Revit Architecture'
                   ].map((skill, idx) => (
                     <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded-lg bg-white/10 text-gray-200 border border-white/10">
-                      {skill}
+                      {localizeText(skill, currentLanguage)}
                     </span>
                   ))}
                 </div>
@@ -625,7 +625,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                 {localizeText("High-precision Revit models, complex parametric family libraries, and European tender sets.", currentLanguage)}
               </p>
               <div className="flex flex-wrap gap-1">
-                <span className="text-[9px] font-mono bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">Revit</span>
+                <span className="text-[9px] font-mono bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">{localizeText("Revit", currentLanguage)}</span>
                 <span className="text-[9px] font-mono bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">{localizeText("Uniclass 2015", currentLanguage)}</span>
                 <span className="text-[9px] font-mono bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">{localizeText("RIBA 3-5", currentLanguage)}</span>
               </div>
@@ -742,7 +742,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                       {localizeText("Application Successfully Logged in Talent Database!", currentLanguage)}
                     </p>
                     <p className="text-[11px] text-emerald-700 font-mono">
-                      {localizeText("Ref ID:", currentLanguage)}<span className="font-bold underline">{submissionId}</span>
+                      {localizeText("Ref ID:", currentLanguage)}{' '}<span className="font-bold underline">{localizeText(submissionId, currentLanguage)}</span>
                     </p>
                   </div>
                 </div>
@@ -753,7 +753,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-emerald-300 text-emerald-800 text-xs font-semibold hover:bg-emerald-100 transition-colors cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
-                    <span>{copiedSummary ? (localizeText("Copied!", currentLanguage)) : (localizeText("Copy Application Summary", currentLanguage))}</span>
+                    <span>{localizeText(copiedSummary ? (localizeText("Copied!", currentLanguage)) : (localizeText("Copy Application Summary", currentLanguage)), currentLanguage)}</span>
                   </button>
 
                   <a
@@ -845,7 +845,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                     className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all"
                   >
                     {DISCIPLINES.map((d, i) => (
-                      <option key={i} value={d}>{d}</option>
+                      <option key={i} value={d}>{localizeText(d, currentLanguage)}</option>
                     ))}
                   </select>
                 </div>
@@ -870,7 +870,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
               <div className="space-y-2">
                 <label className="text-xs font-bold text-gray-700 flex items-center justify-between">
                   <span>{localizeText("Software Stack Proficiency", currentLanguage)} *</span>
-                  <span className="text-[10px] text-gray-400">{formData.softwareStack.length} {isRTL ? 'مورد انتخاب شده' : 'selected'}</span>
+                  <span className="text-[10px] text-gray-400">{formData.softwareStack.length} {localizeText(isRTL ? 'مورد انتخاب شده' : 'selected', currentLanguage)}</span>
                 </label>
                 <div className="flex flex-wrap gap-1.5">
                   {SOFTWARE_OPTIONS.map((sw) => {
@@ -887,7 +887,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                         }`}
                       >
                         {isSelected && '✓ '}
-                        {sw}
+                        {localizeText(sw, currentLanguage)}
                       </button>
                     );
                   })}
@@ -1079,14 +1079,14 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
                       sound.playClick();
                       setActiveFaq(isOpen ? null : idx);
                     }}
-                    className="w-full flex items-center justify-between text-left gap-4 text-xs sm:text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer"
+                    className="w-full flex items-center justify-between text-start gap-4 text-xs sm:text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer"
                   >
-                    <span>{faq.q}</span>
+                    <span>{localizeText(faq.q, currentLanguage)}</span>
                     <ChevronDown className={`w-4 h-4 text-gray-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-blue-600' : ''}`} />
                   </button>
                   {isOpen && (
                     <p className="mt-2.5 text-xs text-gray-600 leading-relaxed animate-in fade-in duration-200">
-                      {faq.a}
+                      {localizeText(faq.a, currentLanguage)}
                     </p>
                   )}
                 </div>

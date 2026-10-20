@@ -56,14 +56,13 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
   const isRTL = currentLanguage === 'fa';
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#f5f6f8] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
       
       {/* Header Breadcrumb */}
       <div className="flex items-center justify-between py-4 border-b border-slate-200 mb-8">
         <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
           <button onClick={onBackToHome} className="hover:text-blue-600 cursor-pointer transition-colors">
-            BIMCO
-          </button>
+            {' '}{localizeText("BIMCO", currentLanguage)}{' '}</button>
           <span>/</span>
           <span className="text-slate-900 font-semibold">{localizeText("Client Portal &amp; Live Order Tracker", currentLanguage)}</span>
         </div>
@@ -125,7 +124,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                {o.countryCode === 'IE' ? '🇮🇪' : o.countryCode === 'GB' ? '🇬🇧' : '🇪🇸'} {o.orderId}
+                {localizeText(o.countryCode === 'IE' ? '🇮🇪' : o.countryCode === 'GB' ? '🇬🇧' : '🇪🇸', currentLanguage)} {localizeText(o.orderId, currentLanguage)}
               </button>
             ))}
           </div>
@@ -148,7 +147,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="text-xs font-mono font-bold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">
-                  {selectedOrder.orderId}
+                  {localizeText(selectedOrder.orderId, currentLanguage)}
                 </span>
                 <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                   selectedOrder.status === 'Completed' 
@@ -165,7 +164,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
                 {localizeText(selectedOrder.projectTitle, currentLanguage)}
               </h2>
               <p className="text-xs font-medium text-slate-500 mt-1">
-                {localizeText("Client Studio:", currentLanguage)}<span className="text-slate-900 font-bold">{selectedOrder.clientName}</span> {localizeText("| Specification:", currentLanguage)}<span className="font-semibold text-blue-600">{selectedOrder.lodLevel}</span>
+                {localizeText("Client Studio:", currentLanguage)}{' '}<span className="text-slate-900 font-bold">{localizeText(selectedOrder.clientName, currentLanguage)}</span> {localizeText("| Specification:", currentLanguage)}{' '}<span className="font-semibold text-blue-600">{localizeText(selectedOrder.lodLevel, currentLanguage)}</span>
               </p>
             </div>
 
@@ -191,19 +190,19 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6">
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Start Date", currentLanguage)}</span>
-              <span className="text-sm font-black text-slate-900 mt-0.5 block">{selectedOrder.startDate}</span>
+              <span className="text-sm font-black text-slate-900 mt-0.5 block">{localizeText(selectedOrder.startDate, currentLanguage)}</span>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Target Delivery", currentLanguage)}</span>
-              <span className="text-sm font-black text-slate-900 mt-0.5 block">{selectedOrder.targetDelivery}</span>
+              <span className="text-sm font-black text-slate-900 mt-0.5 block">{localizeText(selectedOrder.targetDelivery, currentLanguage)}</span>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Cloud Hub", currentLanguage)}</span>
-              <span className="text-xs font-bold text-blue-600 mt-0.5 block truncate">{selectedOrder.cloudWorkspace.platform}</span>
+              <span className="text-xs font-bold text-blue-600 mt-0.5 block truncate">{localizeText(selectedOrder.cloudWorkspace.platform, currentLanguage)}</span>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Last Sync", currentLanguage)}</span>
-              <span className="text-xs font-bold text-emerald-600 mt-0.5 block">{selectedOrder.cloudWorkspace.lastSyncTime}</span>
+              <span className="text-xs font-bold text-emerald-600 mt-0.5 block">{localizeText(selectedOrder.cloudWorkspace.lastSyncTime, currentLanguage)}</span>
             </div>
           </div>
         </div>
@@ -258,7 +257,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
                       <span className="text-xs font-mono font-bold bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded-md">
                         {localizeText("WEEK", currentLanguage)}{report.weekNumber} {localizeText("REPORT", currentLanguage)}</span>
                       <span className="text-xs text-slate-500 font-medium">
-                        {localizeText("Period:", currentLanguage)}{report.weekRange}
+                        {localizeText("Period:", currentLanguage)}{localizeText(report.weekRange, currentLanguage)}
                       </span>
                     </div>
                     <h3 className="text-base font-black text-slate-900 mt-1">
@@ -286,13 +285,13 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
                   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Sheets Produced", currentLanguage)}</span>
                     <span className="text-2xl font-black text-slate-900 mt-1 block">
-                      {report.sheetsDelivered} <span className="text-xs font-normal text-slate-500">drawings</span>
+                      {report.sheetsDelivered} <span className="text-xs font-normal text-slate-500">{localizeText("drawings", currentLanguage)}</span>
                     </span>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Model Health Score", currentLanguage)}</span>
                     <span className="text-sm font-bold text-emerald-600 mt-1.5 block">
-                      {report.modelHealthScore}
+                      {localizeText(report.modelHealthScore, currentLanguage)}
                     </span>
                   </div>
                 </div>
@@ -324,7 +323,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
                 </div>
 
                 {/* Direct Action */}
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-3 items-center justify-between">
                   <button
                     onClick={() => onOpenWhatsApp(`Hello Soheil, regarding Week ${report.weekNumber} report for ${selectedOrder.orderId} (${localizeText(selectedOrder.projectTitle, currentLanguage)}), I have a question about...`)}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition-colors cursor-pointer"
@@ -364,7 +363,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-slate-400">{m.date}</span>
+                      <span className="text-xs font-mono font-bold text-slate-400">{localizeText(m.date, currentLanguage)}</span>
                       {m.completed && <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">{localizeText("Completed", currentLanguage)}</span>}
                       {m.current && <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full animate-pulse">{localizeText("In Progress", currentLanguage)}</span>}
                     </div>
@@ -396,14 +395,14 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Project Hub", currentLanguage)}</span>
                 <span className="text-xs font-mono font-bold text-slate-900 mt-1 block truncate">
-                  {selectedOrder.cloudWorkspace.hubName}
+                  {localizeText(selectedOrder.cloudWorkspace.hubName, currentLanguage)}
                 </span>
               </div>
 
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{localizeText("Central Model Container", currentLanguage)}</span>
                 <span className="text-xs font-mono font-bold text-blue-600 mt-1 block truncate">
-                  {selectedOrder.cloudWorkspace.centralModelName}
+                  {localizeText(selectedOrder.cloudWorkspace.centralModelName, currentLanguage)}
                 </span>
               </div>
             </div>
@@ -417,7 +416,7 @@ export const ClientPortalView: React.FC<ClientPortalViewProps> = ({
         <div className="bg-gradient-to-r from-slate-900 to-blue-950 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-lg sm:text-xl font-black mb-1">
-              {localizeText("Have questions regarding", currentLanguage)}{selectedOrder.orderId}?
+              {localizeText("Have questions regarding", currentLanguage)}{localizeText(selectedOrder.orderId, currentLanguage)}?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300">
               {localizeText("Direct line to Lead BIM Architect (Soheil Masti) on WhatsApp (+34 610 855 434).", currentLanguage)}</p>

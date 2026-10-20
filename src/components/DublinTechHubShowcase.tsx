@@ -762,7 +762,7 @@ export const DublinTechHubShowcase: React.FC<{
                         rotationY={-0.6} 
                         fovAngle={90} 
                         showFOV={layers.fov}
-                        name="CAM-L3-01 (Turnstiles)"
+                        name={localizeText("CAM-L3-01 (Turnstiles)", currentLanguage)}
                         onClick={() => setSelectedElement({
                           title: "CAM-L3-01 Varifocal 4MP CCTV",
                           category: "Security & ELV",
@@ -776,7 +776,7 @@ export const DublinTechHubShowcase: React.FC<{
                         rotationY={3.14} 
                         fovAngle={110} 
                         showFOV={layers.fov}
-                        name="CAM-L3-02 (MDF Corridor)"
+                        name={localizeText("CAM-L3-02 (MDF Corridor)", currentLanguage)}
                         onClick={() => setSelectedElement({
                           title: "CAM-L3-02 PTZ Corridor Camera",
                           category: "Security & ELV",
@@ -790,7 +790,7 @@ export const DublinTechHubShowcase: React.FC<{
                         rotationY={0.8} 
                         fovAngle={90} 
                         showFOV={layers.fov}
-                        name="CAM-L3-03 (Open Office)"
+                        name={localizeText("CAM-L3-03 (Open Office)", currentLanguage)}
                         onClick={() => setSelectedElement({
                           title: "CAM-L3-03 Panoramic 360 Camera",
                           category: "Security & ELV",
@@ -906,7 +906,7 @@ export const DublinTechHubShowcase: React.FC<{
                 <div className="absolute bottom-4 left-4 bg-slate-900/95 backdrop-blur border border-slate-800 p-4 rounded-2xl shadow-2xl z-10 max-w-sm">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] font-mono bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded border border-sky-500/30">
-                      {selectedElement.category}
+                      {localizeText(selectedElement.category, currentLanguage)}
                     </span>
                     <button 
                       onClick={() => setSelectedElement(null)}
@@ -915,14 +915,14 @@ export const DublinTechHubShowcase: React.FC<{
                       ✕
                     </button>
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">{selectedElement.title}</h3>
+                  <h3 className="text-sm font-bold text-white mb-1">{localizeText(selectedElement.title, currentLanguage)}</h3>
                   <p className="text-xs text-slate-300 font-mono mb-2 bg-slate-950 p-2 rounded border border-slate-800">
-                    {selectedElement.spec}
+                    {localizeText(selectedElement.spec, currentLanguage)}
                   </p>
-                  <p className="text-[11px] text-slate-400 mb-2 leading-relaxed">{selectedElement.details}</p>
+                  <p className="text-[11px] text-slate-400 mb-2 leading-relaxed">{localizeText(selectedElement.details, currentLanguage)}</p>
                   <div className="text-[10px] text-emerald-400 flex items-center gap-1 font-semibold">
                     <CheckCheck className="w-3.5 h-3.5" />
-                    <span>{localizeText("Standards:", currentLanguage)}{selectedElement.standards}</span>
+                    <span>{localizeText("Standards:", currentLanguage)}{localizeText(selectedElement.standards, currentLanguage)}</span>
                   </div>
                 </div>
               )}
@@ -1036,11 +1036,11 @@ export const DublinTechHubShowcase: React.FC<{
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                         auditResults.isVoltDropPass ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
                       }`}>
-                        {auditResults.isVoltDropPass ? 'PASS (≤ 3.0%)' : 'WARNING (> 3.0%)'}
+                        {localizeText(auditResults.isVoltDropPass ? 'PASS (≤ 3.0%)' : 'WARNING (> 3.0%)', currentLanguage)}
                       </span>
                     </div>
                     <p className="text-xs text-slate-400">
-                      {localizeText("Calculated Voltage Drop:", currentLanguage)}<strong className="text-white">{auditResults.voltDrop} {localizeText("V", currentLanguage)}</strong> ({auditResults.voltDropPercent}{localizeText("% drop over", currentLanguage)}{cableLengthM}{localizeText("m with", currentLanguage)}{cableSizeMm2}{localizeText("mm² Cu).", currentLanguage)}</p>
+                      {localizeText("Calculated Voltage Drop:", currentLanguage)}<strong className="text-white">{localizeText(auditResults.voltDrop, currentLanguage)} {localizeText("V", currentLanguage)}</strong> ({localizeText(auditResults.voltDropPercent, currentLanguage)}{localizeText("% drop over", currentLanguage)}{cableLengthM}{localizeText("m with", currentLanguage)}{cableSizeMm2}{localizeText("mm² Cu).", currentLanguage)}</p>
                   </div>
                 </div>
 
@@ -1055,11 +1055,11 @@ export const DublinTechHubShowcase: React.FC<{
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                         auditResults.isRackPass ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
                       }`}>
-                        {auditResults.isRackPass ? 'PASS (≥ 20%)' : 'FAIL (< 20%)'}
+                        {localizeText(auditResults.isRackPass ? 'PASS (≥ 20%)' : 'FAIL (< 20%)', currentLanguage)}
                       </span>
                     </div>
                     <p className="text-xs text-slate-400">
-                      {localizeText("Spare Capacity:", currentLanguage)}<strong className="text-white">{auditResults.rackHeadroomPercent}%</strong> {localizeText("free rack U remaining across", currentLanguage)}{rackCount} {localizeText("racks.", currentLanguage)}</p>
+                      {localizeText("Spare Capacity:", currentLanguage)}<strong className="text-white">{localizeText(auditResults.rackHeadroomPercent, currentLanguage)}%</strong> {localizeText("free rack U remaining across", currentLanguage)}{rackCount} {localizeText("racks.", currentLanguage)}</p>
                   </div>
                 </div>
 
@@ -1067,7 +1067,7 @@ export const DublinTechHubShowcase: React.FC<{
                   <div className="space-y-1">
                     <span className="font-bold text-white text-sm">{localizeText("30-Day NVR Storage & PoE Power Budget", currentLanguage)}</span>
                     <p className="text-xs text-slate-400">
-                      {localizeText("Storage:", currentLanguage)}<strong className="text-sky-400">{auditResults.requiredStorageTB} {localizeText("TB RAID-6", currentLanguage)}</strong> {localizeText("| Total PoE Load:", currentLanguage)}<strong className="text-emerald-400">{auditResults.totalPoEBudgetW} {localizeText("Watts", currentLanguage)}</strong>.
+                      {localizeText("Storage:", currentLanguage)}<strong className="text-sky-400">{localizeText(auditResults.requiredStorageTB, currentLanguage)} {localizeText("TB RAID-6", currentLanguage)}</strong> {localizeText("| Total PoE Load:", currentLanguage)}<strong className="text-emerald-400">{auditResults.totalPoEBudgetW} {localizeText("Watts", currentLanguage)}</strong>.
                     </p>
                   </div>
                   <span className="text-xs font-mono bg-slate-800 text-slate-300 px-3 py-1 rounded-lg">
@@ -1097,7 +1097,7 @@ export const DublinTechHubShowcase: React.FC<{
               </div>
 
               <div className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-start text-xs">
                   <thead className="bg-slate-950 text-slate-400 font-mono border-b border-slate-800">
                     <tr>
                       <th className="p-3">{localizeText("Discipline / Code", currentLanguage)}</th>

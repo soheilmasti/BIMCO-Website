@@ -197,7 +197,7 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
                   selectedFilter === cat.id ? 'bg-black text-white shadow-xs' : 'text-gray-600 hover:text-black'
                 }`}
               >
-                {shortLabel} ({cat.projects.length})
+                {localizeText(shortLabel, currentLanguage)} ({cat.projects.length})
               </button>
             );
           })}
@@ -233,7 +233,7 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
                   />
                   <div className={`absolute top-3.5 ${localizeText("right-3.5", currentLanguage)} flex items-center gap-1.5`}>
                     <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full glass-panel shadow-sm text-gray-900">
-                      {project.status}
+                      {localizeText(project.status, currentLanguage)}
                     </span>
                     <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white shadow-sm">
                       {project.gallery?.length || 1} {localizeText("Sheets", currentLanguage)}
@@ -266,18 +266,18 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
                 <div className="p-5 pt-3">
                   <div className="flex items-center justify-between">
                     <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                      {project.title}
+                      {localizeText(project.title, currentLanguage)}
                     </h3>
                     <span className="font-mono text-xs text-gray-600 font-bold px-2 py-0.5 rounded bg-gray-100 shrink-0">
-                      {project.year}
+                      {localizeText(project.year, currentLanguage)}
                     </span>
                   </div>
                   {isRTL && project.englishTitle && (
-                    <p className="text-xs font-mono text-gray-400 mt-0.5 font-medium truncate">{project.englishTitle}</p>
+                    <p className="text-xs font-mono text-gray-400 mt-0.5 font-medium truncate">{localizeText(project.englishTitle, currentLanguage)}</p>
                   )}
                   
                   <p className="text-xs text-gray-600 line-clamp-2 mt-2 leading-relaxed">
-                    {project.concept}
+                    {localizeText(project.concept, currentLanguage)}
                   </p>
                 </div>
               </div>
@@ -286,11 +286,11 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
               <div className="px-5 pb-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500 font-medium">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                  <span className="truncate max-w-[140px]">{project.location}</span>
+                  <span className="truncate max-w-[140px]">{localizeText(project.location, currentLanguage)}</span>
                 </span>
                 <span className="flex items-center gap-1">
                   <Maximize2 className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                  <span>{project.area}</span>
+                  <span>{localizeText(project.area, currentLanguage)}</span>
                 </span>
               </div>
             </motion.div>
@@ -331,14 +331,14 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
               <div className="p-3 bg-white flex items-center justify-between border-t border-gray-100">
                 <div className="min-w-0 pr-2">
                   <h4 className="text-xs font-bold text-gray-900 truncate">
-                    {item.projectTitle}
+                    {localizeText(item.projectTitle, currentLanguage)}
                   </h4>
                   <p className="text-[10px] font-mono text-gray-400">
-                    {item.categoryTitle}
+                    {localizeText(item.categoryTitle, currentLanguage)}
                   </p>
                 </div>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 shrink-0">
-                  {isRTL ? `شیت ${item.sheetIndex}/${item.totalSheets}` : `${item.sheetIndex}/${item.totalSheets}`}
+                  {localizeText(isRTL ? `شیت ${item.sheetIndex}/${item.totalSheets}` : `${item.sheetIndex}/${item.totalSheets}`, currentLanguage)}
                 </span>
               </div>
             </motion.div>
@@ -358,13 +358,13 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
           <div className="flex items-center justify-between pb-3 px-2 text-white z-20">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-xl bg-blue-600 text-white">
-                {isRTL ? `شیت ${currentZoomSheet.sheetIndex} از ${currentZoomSheet.totalSheets}` : `${localizeText('SHEET', currentLanguage)} ${currentZoomSheet.sheetIndex} ${localizeText('of', currentLanguage)} ${currentZoomSheet.totalSheets}`}
+                {localizeText(isRTL ? `شیت ${currentZoomSheet.sheetIndex} از ${currentZoomSheet.totalSheets}` : `${localizeText('SHEET', currentLanguage)} ${currentZoomSheet.sheetIndex} ${localizeText('of', currentLanguage)} ${currentZoomSheet.totalSheets}`, currentLanguage)}
               </span>
               <span className="text-xs text-gray-300 font-bold hidden sm:inline">
-                {currentZoomSheet.projectTitle}
+                {localizeText(currentZoomSheet.projectTitle, currentLanguage)}
               </span>
               <span className="text-[11px] font-mono text-gray-400 hidden md:inline">
-                ({currentZoomSheet.categoryTitle})
+                ({localizeText(currentZoomSheet.categoryTitle, currentLanguage)})
               </span>
             </div>
             <div className="flex items-center gap-2">

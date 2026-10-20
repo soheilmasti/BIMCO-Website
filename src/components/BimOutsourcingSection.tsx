@@ -66,12 +66,12 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
   const totalBimco = bimcoBasePerSeat * teamSize;
   const totalSavings = totalInHouse - totalBimco;
 
-  const formattedInHouse = `${currencySymbol}${totalInHouse.toLocaleString()}`;
-  const formattedBimco = `${currencySymbol}${totalBimco.toLocaleString()}`;
-  const formattedSavings = `${currencySymbol}${totalSavings.toLocaleString()}`;
+  const formattedInHouse = `${currencySymbol}${totalInHouse.toLocaleString(language)}`;
+  const formattedBimco = `${currencySymbol}${totalBimco.toLocaleString(language)}`;
+  const formattedSavings = `${currencySymbol}${totalSavings.toLocaleString(language)}`;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#f5f6f8] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
       
       {/* Header Navigation & Breadcrumb */}
       <div className="flex items-center justify-between py-4 border-b border-slate-200 mb-8">
@@ -80,8 +80,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
             onClick={onBackToHome}
             className="hover:text-blue-600 cursor-pointer transition-colors"
           >
-            BIMCO
-          </button>
+            {' '}{localizeText("BIMCO", language)}{' '}</button>
           <span>/</span>
           <span className="text-slate-900 font-semibold">{localizeText("Strategic BIM Production &amp; Nearshore Delivery", language)}</span>
         </div>
@@ -115,11 +114,10 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight mb-6">
           {isRTL ? (
             <>
-              مدل‌سازی تخصصی، <span className="text-blue-600 underline decoration-blue-200 decoration-wavy decoration-2">{localizeText("امن و مقرون‌به‌صرفه BIM", language)}</span> برای استودیوهای معماری
-            </>
+              {' '}{localizeText("مدل‌سازی تخصصی،", language)}{' '}<span className="text-blue-600 underline decoration-blue-200 decoration-wavy decoration-2">{localizeText("امن و مقرون‌به‌صرفه BIM", language)}</span> {' '}{localizeText("برای استودیوهای معماری", language)}{' '}</>
           ) : (
             <>
-              {localizeText("Scalable, Secure &amp;", language)}<span className="text-blue-600 underline decoration-blue-200 decoration-wavy decoration-2">{localizeText("Cost-Effective", language)}</span> {localizeText("Architectural BIM Delivery.", language)}</>
+              {localizeText("Scalable, Secure &amp;", language)}{' '}<span className="text-blue-600 underline decoration-blue-200 decoration-wavy decoration-2">{localizeText("Cost-Effective", language)}</span> {localizeText("Architectural BIM Delivery.", language)}</>
           )}
         </h1>
 
@@ -148,8 +146,8 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
         ].map((item, i) => (
           <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-center text-center">
             <ShieldCheck className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-            <span className="font-black text-sm text-slate-900">{item.label}</span>
-            <span className="text-[11px] text-slate-500 mt-0.5">{item.desc}</span>
+            <span className="font-black text-sm text-slate-900">{localizeText(item.label, language)}</span>
+            <span className="text-[11px] text-slate-500 mt-0.5">{localizeText(item.desc, language)}</span>
           </div>
         ))}
       </section>
@@ -327,7 +325,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
               {localizeText("Required Dedicated Revit Modelers / Technicians:", language)}
             </label>
             <span className="text-lg font-black text-blue-600 bg-white px-4 py-1 rounded-xl border border-slate-200 shadow-xs">
-              {teamSize} {teamSize === 1 ? 'Modeler (FTE)' : 'Modelers (FTE)'}
+              {teamSize} {localizeText(teamSize === 1 ? 'Modeler (FTE)' : 'Modelers (FTE)', language)}
             </span>
           </div>
           <input
@@ -354,7 +352,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               {localizeText("Traditional In-House Hiring", language)}
             </span>
-            <div className="text-3xl font-black text-slate-900 mt-2">{formattedInHouse} <span className="text-xs font-medium text-slate-500">/ year</span></div>
+            <div className="text-3xl font-black text-slate-900 mt-2">{localizeText(formattedInHouse, language)} <span className="text-xs font-medium text-slate-500">{localizeText("/ year", language)}</span></div>
             <ul className="mt-6 space-y-3 text-xs text-slate-600">
               <li className="flex items-center gap-2 text-slate-700">
                 <span className="text-red-500 font-bold">✕</span> {localizeText("High base salary (£48k-£60k / €55k-€72k)", language)}</li>
@@ -375,7 +373,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
             <span className="text-xs font-bold uppercase tracking-wider text-blue-200">
               {localizeText("Why Partner With BIMCO", language)}
             </span>
-            <div className="text-3xl font-black text-white mt-2">{formattedBimco} <span className="text-xs font-medium text-blue-200">/ year</span></div>
+            <div className="text-3xl font-black text-white mt-2">{localizeText(formattedBimco, language)} <span className="text-xs font-medium text-blue-200">{localizeText("/ year", language)}</span></div>
             <ul className="mt-6 space-y-3 text-xs text-blue-50">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" /> {localizeText("Zero recruitment or placement fees", language)}</li>
@@ -396,9 +394,9 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
                 {localizeText("Net Studio Value & Annual Efficiency", language)}
               </span>
-              <div className="text-4xl font-black text-emerald-700 mt-2">{formattedSavings}</div>
+              <div className="text-4xl font-black text-emerald-700 mt-2">{localizeText(formattedSavings, language)}</div>
               <p className="text-xs text-emerald-800 mt-2 leading-relaxed">
-                {localizeText("Direct annual savings for", language)}{teamSize} {teamSize === 1 ? 'modeler' : 'modelers'}{localizeText(". Reinvest into design innovation, client pitch capacity, and partner equity.", language)}</p>
+                {localizeText("Direct annual savings for", language)}{teamSize} {localizeText(teamSize === 1 ? 'modeler' : 'modelers', language)}{localizeText(". Reinvest into design innovation, client pitch capacity, and partner equity.", language)}</p>
             </div>
 
             <div className="pt-6">
@@ -468,13 +466,13 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
                 <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-base font-black text-slate-900 mb-2">{service.title}</h3>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">{service.desc}</p>
+                <h3 className="text-base font-black text-slate-900 mb-2">{localizeText(service.title, language)}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">{localizeText(service.desc, language)}</p>
                 <div className="pt-3 border-t border-slate-100 space-y-1.5">
                   {service.features.map((feat, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-[11px] text-slate-700 font-medium">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      <span>{feat}</span>
+                      <span>{localizeText(feat, language)}</span>
                     </div>
                   ))}
                 </div>
@@ -551,14 +549,14 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
             <div key={idx} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
               <button
                 onClick={() => toggleFaq(idx)}
-                className="w-full text-left p-5 flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                className="w-full text-start p-5 flex items-center justify-between gap-4 font-bold text-sm text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
               >
-                <span>{faq.q}</span>
+                <span>{localizeText(faq.q, language)}</span>
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${activeFaq === idx ? 'rotate-180 text-blue-600' : ''}`} />
               </button>
               {activeFaq === idx && (
                 <div className="px-5 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                  {faq.a}
+                  {localizeText(faq.a, language)}
                 </div>
               )}
             </div>
@@ -592,7 +590,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
 
       {/* Talent Network Invite Callout */}
       {onNavigateToPartners && (
-        <div className="mt-8 p-6 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-xs">
+        <div className="mt-8 p-6 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-start shadow-xs">
           <div>
             <h4 className="text-sm font-bold text-slate-900">
               {localizeText("Are you an Architect, BIM Modeler or MEP Specialist?", language)}

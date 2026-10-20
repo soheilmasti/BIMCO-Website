@@ -269,7 +269,7 @@ export const BimKnowledgeHubModal: React.FC<BimKnowledgeHubModalProps> = ({
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                 }`}
               >
-                {isRTL ? cat.labelFa : localizeContent(cat.labelEn, currentLanguage)}
+                {localizeText(isRTL ? cat.labelFa : localizeContent(cat.labelEn, currentLanguage), currentLanguage)}
               </button>
             ))}
           </div>
@@ -292,21 +292,21 @@ export const BimKnowledgeHubModal: React.FC<BimKnowledgeHubModalProps> = ({
                 <div key={faq.id} className="pt-3 first:pt-0">
                   <button
                     onClick={() => toggleFaq(faq.id)}
-                    className="w-full flex items-start justify-between gap-4 text-left p-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer group"
+                    className="w-full flex items-start justify-between gap-4 text-start p-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer group"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 uppercase font-bold">
-                          {faq.category}
+                          {localizeText(faq.category, currentLanguage)}
                         </span>
                         {faq.tags.slice(0, 2).map((t, idx) => (
                           <span key={idx} className="hidden sm:inline text-[9px] font-mono text-slate-400">
-                            #{t}
+                            #{localizeText(t, currentLanguage)}
                           </span>
                         ))}
                       </div>
                       <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
-                        {isRTL ? faq.qFa : localizeContent(faq.qEn, currentLanguage)}
+                        {localizeText(isRTL ? faq.qFa : localizeContent(faq.qEn, currentLanguage), currentLanguage)}
                       </h4>
                     </div>
                     <ChevronDown className={`w-4 h-4 text-slate-400 mt-1 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-blue-600' : ''}`} />
@@ -315,7 +315,7 @@ export const BimKnowledgeHubModal: React.FC<BimKnowledgeHubModalProps> = ({
                   {isOpen && (
                     <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed space-y-3 animate-in fade-in duration-200">
                       <p className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/60 font-normal">
-                        {isRTL ? faq.aFa : localizeContent(faq.aEn, currentLanguage)}
+                        {localizeText(isRTL ? faq.aFa : localizeContent(faq.aEn, currentLanguage), currentLanguage)}
                       </p>
                     </div>
                   )}

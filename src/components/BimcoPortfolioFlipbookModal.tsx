@@ -54,7 +54,7 @@ export const PORTFOLIO_VOLUMES: Record<PortfolioVolumeKey, VolumeConfig> = {
     pdfUrl: BIM_PORTFOLIO_PDF, pdfDownloadName: 'Soheil_Masti_BIM_Coordinator_Portfolio.pdf',
     pdfSizeText: '3.8 MB', pagesFolder: '/portfolios/bim-coordinator/book_pages',
     icon: <BookOpen className="w-4 h-4" />,
-    translations: Object.fromEntries((['en', 'es', 'fa', 'ca', 'fr', 'de', 'it'] as LanguageCode[]).map(lang => {
+    translations: Object.fromEntries((['en', 'es', 'fa', 'ca', 'fr', 'de', 'it', 'zh', 'ru', 'pt', 'nl'] as LanguageCode[]).map(lang => {
       const c = getBimCopy(lang);
       return [lang, { numberText: 'IV', badge: 'BIM', title: c.portfolioTitle, description: c.portfolioDescription,
         shortcuts: [{ label: c.portfolioTitle, page: 0 }, { label: c.projectTitle, page: 2 }, { label: c.skillsTitle, page: 11 }] }];
@@ -403,12 +403,12 @@ interface BimcoPortfolioFlipbookModalProps {
 }
 
 export function computeOptimalBookSize(winW: number, winH: number, pageAspectRatio = 8 / 9) {
-  const isPortrait = winW < 768;
-  const verticalReserved = winW < 640 ? 135 : 155;
+  const isPortrait = winW < 768 || (winH < 500 && winW < 1024);
+  const verticalReserved = winW < 640 ? 280 : winW < 1280 ? 240 : 155;
   const horizontalReserved = winW < 640 ? 16 : 48;
 
   const availW = Math.max(300, winW - horizontalReserved);
-  const availH = Math.max(250, winH - verticalReserved);
+  const availH = Math.max(100, winH - verticalReserved);
 
   if (isPortrait) {
     const ratio = pageAspectRatio;
@@ -442,9 +442,11 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   currentLanguage = 'en'
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const activeVolumeButtonRef = useRef<HTMLButtonElement>(null);
   const flipBookInstance = useRef<PageFlip | null>(null);
 
   const [activeVolume, setActiveVolume] = useState<PortfolioVolumeKey>(initialVolume);
+  useEffect(() => { activeVolumeButtonRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }, [isOpen, activeVolume]);
   const [currentPage, setCurrentPage] = useState<number>(initialVolume === 'bim-coordinator' ? 0 : 1);
   const currentPageRef = useRef<number>(initialVolume === 'bim-coordinator' ? 0 : 1);
   const [bookSize, setBookSize] = useState(() => {
@@ -505,7 +507,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
 
   const isRTL = currentLanguage === 'fa';
   const currentConfig = PORTFOLIO_VOLUMES[activeVolume];
-  const volLocalized = localizeContent(currentConfig.translations[langKey] || currentConfig.translations.en, currentLanguage);
+  const volLocalized = localizeContent(currentConfig.translations[currentLanguage] || currentConfig.translations[langKey] || currentConfig.translations.en, currentLanguage);
 
   // Localized UI Labels
   const baseUi = useMemo(() => {
@@ -773,10 +775,10 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
     // Fail-safe for mobile portrait & rapid touch: if flip animation did not advance, turn directly
     setTimeout(() => {
       const cur = fp.getCurrentPageIndex();
-      if (cur === curBefore && curBefore > 0) {
+      if (flipBookInstance.current === fp && fp.getState() === 'read' && cur === curBefore && curBefore > 0) {
         (fp as any).turnToPrevPage?.();
       }
-    }, 120);
+    }, 800);
   }, []);
 
   const handleNext = useCallback(() => {
@@ -791,10 +793,10 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
     // Fail-safe for mobile portrait & rapid touch
     setTimeout(() => {
       const cur = fp.getCurrentPageIndex();
-      if (cur === curBefore && curBefore < currentConfig.totalPages - 1) {
+      if (flipBookInstance.current === fp && fp.getState() === 'read' && cur === curBefore && curBefore < currentConfig.totalPages - 1) {
         (fp as any).turnToNextPage?.();
       }
-    }, 120);
+    }, 800);
   }, [currentConfig.totalPages]);
 
   const handleJumpToPage = useCallback((pageNum: number) => {
@@ -826,12 +828,12 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
 
   const handleCopyShareLink = useCallback(() => {
     sound.playClick();
-    const shareUrl = `${window.location.origin}/?portfolio=true&vol=${activeVolume}`;
+    const shareUrl = `${window.location.origin}/?portfolio=true&vol=${activeVolume}&lang=${currentLanguage}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
     }).catch(() => {});
-  }, [activeVolume]);
+  }, [activeVolume, currentLanguage]);
 
   // Touch Swipe Support
   const touchStartX = useRef<number | null>(null);
@@ -847,6 +849,10 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
     const diffX = e.changedTouches[0].clientX - touchStartX.current;
     const diffY = e.changedTouches[0].clientY - touchStartY.current;
 
+    // PageFlip owns gestures on the book; this fallback covers the surrounding stage.
+    if ((e.target as Element).closest('.stf__parent') || flipBookInstance.current?.getState() !== 'read') {
+      touchStartX.current = null; touchStartY.current = null; return;
+    }
     // Dominant horizontal swipe
     if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
       if (diffX < 0) {
@@ -875,10 +881,10 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   // Compute readable page range string
   const pageStatusText = useMemo(() => {
     if (currentPage === 0) {
-      return `${ui.frontCover} (1 / ${currentConfig.totalPages})`;
+      return `${ui.frontCover} \u2066(${new Intl.NumberFormat(currentLanguage).format(1)} / ${new Intl.NumberFormat(currentLanguage).format(currentConfig.totalPages)})\u2069`;
     }
     if (currentPage >= currentConfig.totalPages - 1) {
-      return `${ui.backCover} (${currentConfig.totalPages} / ${currentConfig.totalPages})`;
+      return `${ui.backCover} \u2066(${new Intl.NumberFormat(currentLanguage).format(currentConfig.totalPages)} / ${new Intl.NumberFormat(currentLanguage).format(currentConfig.totalPages)})\u2069`;
     }
     if (isPortraitMode) {
       return `${ui.pageText} ${currentPage + 1} ${ui.ofText} ${currentConfig.totalPages}`;
@@ -887,24 +893,25 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
     const leftPage = currentPage % 2 === 1 ? currentPage + 1 : currentPage;
     const rightPage = Math.min(currentConfig.totalPages, leftPage + 1);
     return `${ui.pagesText} ${String(leftPage).padStart(2, '0')} – ${String(rightPage).padStart(2, '0')} ${ui.ofText} ${currentConfig.totalPages}`;
-  }, [currentPage, currentConfig.totalPages, isPortraitMode, ui]);
+  }, [currentPage, currentConfig.totalPages, isPortraitMode, ui, currentLanguage]);
 
   if (!isOpen) return null;
 
   return (
     <div 
-      className="fixed inset-0 z-[100] flex flex-col bg-[#080c12]/98 backdrop-blur-2xl text-slate-100 select-none overflow-hidden"
+      role="dialog" aria-modal="true" aria-label={volLocalized.title}
+      className="bimco-book fixed inset-0 z-[100] flex flex-col bg-[#080c12]/98 backdrop-blur-2xl text-slate-100 select-none overflow-hidden"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* 1. TOP HEADER & STUDIO IDENTITY */}
-      <header className="px-3 sm:px-6 py-2.5 bg-slate-950/90 border-b border-white/10 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 shrink-0 z-20 shadow-md">
+      <header className="px-3 sm:px-6 py-2.5 bg-slate-950/90 border-b border-white/10 flex flex-wrap xl:flex-nowrap items-center justify-between gap-2 shrink-0 z-20 shadow-md">
         {/* Left: Studio Barcelona & Logo (Click -> Return to Home / First Page) */}
         <button
           onClick={() => {
             sound.playClick();
             onClose();
           }}
-          className="flex items-center gap-2 sm:gap-3 cursor-pointer group p-1 -m-1 rounded-xl hover:bg-white/5 active:scale-95 transition-all text-left"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group p-1 -m-1 rounded-xl hover:bg-white/5 active:scale-95 transition-all text-start"
           title={localizeText('Return to Home', currentLanguage)}
         >
           <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center p-1 group-hover:border-amber-400 group-hover:bg-amber-500/20 transition-all shrink-0">
@@ -912,7 +919,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-white text-xs sm:text-sm tracking-wider font-mono group-hover:text-amber-300 transition-colors">BIMCO</span>
+              <span className="font-extrabold text-white text-xs sm:text-sm tracking-wider font-mono group-hover:text-amber-300 transition-colors">{localizeText("BIMCO", currentLanguage)}</span>
               <span className="text-[10px] text-amber-400 font-semibold px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/20 group-hover:bg-amber-400 group-hover:text-black transition-all">
                 {localizeText("BARCELONA", currentLanguage)}</span>
               <span className="sm:hidden text-[9px] text-amber-200 bg-amber-500/20 border border-amber-500/30 px-1.5 py-0.5 rounded flex items-center gap-1 font-sans">
@@ -927,14 +934,15 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
         </button>
 
         {/* Center: Volume Selector Buttons */}
-        <div className="order-3 sm:order-none w-full sm:w-auto flex items-center gap-1 sm:gap-2 bg-white/5 p-1 rounded-xl border border-white/10 overflow-x-auto shrink-0">
+        <div className="order-3 xl:order-none w-full xl:w-auto flex items-center gap-1 sm:gap-2 bg-white/5 p-1 rounded-xl border border-white/10 overflow-x-auto shrink-0">
           {(['villas', 'apartments', 'urban', 'bim-coordinator'] as PortfolioVolumeKey[]).map((volKey) => {
             const v = PORTFOLIO_VOLUMES[volKey];
-            const vLoc = localizeContent(v.translations[langKey] || v.translations.en, currentLanguage);
+            const vLoc = localizeContent(v.translations[currentLanguage] || v.translations[langKey] || v.translations.en, currentLanguage);
             const isActive = activeVolume === volKey;
             return (
               <button
                 key={volKey}
+                ref={isActive ? activeVolumeButtonRef : undefined}
                 onClick={() => handleSwitchVolume(volKey)}
                 className={`shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isActive
@@ -943,8 +951,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
                 }`}
               >
                 {v.icon}
-                <span className="hidden sm:inline">{vLoc.numberText}:</span>
-                <span>{vLoc.badge}</span>
+                <span className="hidden sm:inline">{localizeText(vLoc.numberText, currentLanguage)}:</span>
+                <span>{localizeText(vLoc.badge, currentLanguage)}</span>
               </button>
             );
           })}
@@ -960,9 +968,9 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
             title={`${ui.downloadPdf} (${currentConfig.pdfSizeText})`}
           >
             <Download className="w-3.5 h-3.5" />
-            <span>PDF</span>
+            <span>{localizeText("PDF", currentLanguage)}</span>
             <span className="text-[10px] bg-black/20 px-1 py-0.5 rounded font-mono text-amber-200">
-              {currentConfig.pdfSizeText}
+              {localizeText(currentConfig.pdfSizeText, currentLanguage)}
             </span>
           </a>
 
@@ -1018,11 +1026,11 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
       </header>
 
       {/* Volume Info Strip (Sub-header) */}
-      <div className="px-4 py-1.5 bg-slate-900/70 border-b border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300 font-mono">
-        <div className="flex items-center gap-2">
+      <div className="px-4 py-1.5 bg-slate-900/70 border-b border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300 font-sans">
+        <div className="flex items-center gap-2 min-w-0">
           <BookOpen className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span className="font-bold text-amber-300">{volLocalized.numberText}:</span>
-          <span className="truncate max-w-[280px] sm:max-w-md">{volLocalized.title}</span>
+          <span className="font-bold text-amber-300">{localizeText(volLocalized.numberText, currentLanguage)}:</span>
+          <span className="truncate max-w-[280px] sm:max-w-md">{localizeText(volLocalized.title, currentLanguage)}</span>
         </div>
 
         {/* Page status indicator & Mobile Quick Navigation */}
@@ -1030,7 +1038,6 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
           {/* Mobile fast prev button */}
           <button
             onClick={handlePrev}
-            onTouchEnd={(e) => { e.stopPropagation(); handlePrev(); }}
             disabled={currentPage <= 0}
             className={`sm:hidden px-2.5 py-1 rounded-lg text-xs font-bold border transition-all touch-manipulation cursor-pointer flex items-center gap-1 ${
               currentPage <= 0 
@@ -1044,13 +1051,12 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
           </button>
 
           <span className="text-slate-200 font-semibold text-xs sm:text-sm">
-            {pageStatusText}
+            {localizeText(pageStatusText, currentLanguage)}
           </span>
 
           {/* Mobile fast next button */}
           <button
             onClick={handleNext}
-            onTouchEnd={(e) => { e.stopPropagation(); handleNext(); }}
             disabled={currentPage >= currentConfig.totalPages - 1}
             className={`sm:hidden px-2.5 py-1 rounded-lg text-xs font-bold border transition-all touch-manipulation cursor-pointer flex items-center gap-1 ${
               currentPage >= currentConfig.totalPages - 1 
@@ -1081,7 +1087,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
             className="sm:hidden flex items-center gap-1 text-[11px] bg-amber-600 hover:bg-amber-500 text-white px-2 py-0.5 rounded-md font-bold shrink-0 ml-1"
           >
             <Download className="w-3 h-3" />
-            <span>PDF</span>
+            <span>{localizeText("PDF", currentLanguage)}</span>
           </a>
         </div>
       </div>
@@ -1095,12 +1101,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
         {/* Navigation Chevron Left */}
         <button
           onClick={handlePrev}
-          onTouchEnd={(e) => {
-            e.stopPropagation();
-            handlePrev();
-          }}
           disabled={currentPage <= 0}
-          className={`absolute left-1 sm:left-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 cursor-pointer shadow-2xl touch-manipulation active:scale-90 ${
+          className={`absolute left-1 sm:left-6 rtl:left-auto rtl:right-1 sm:rtl:left-auto sm:rtl:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 cursor-pointer shadow-2xl touch-manipulation active:scale-90 ${
             currentPage <= 0 
               ? 'bg-white/5 text-slate-600 opacity-20 cursor-not-allowed' 
               : 'bg-slate-900/90 hover:bg-amber-600 text-white border border-white/20 hover:scale-105 hover:border-amber-400'
@@ -1135,12 +1137,8 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
         {/* Navigation Chevron Right */}
         <button
           onClick={handleNext}
-          onTouchEnd={(e) => {
-            e.stopPropagation();
-            handleNext();
-          }}
           disabled={currentPage >= currentConfig.totalPages - 1}
-          className={`absolute right-1 sm:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 cursor-pointer shadow-2xl touch-manipulation active:scale-90 ${
+          className={`absolute right-1 sm:right-6 rtl:right-auto rtl:left-1 sm:rtl:right-auto sm:rtl:left-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center transition-all duration-300 cursor-pointer shadow-2xl touch-manipulation active:scale-90 ${
             currentPage >= currentConfig.totalPages - 1 
               ? 'bg-white/5 text-slate-600 opacity-20 cursor-not-allowed' 
               : 'bg-slate-900/90 hover:bg-amber-600 text-white border border-white/20 hover:scale-105 hover:border-amber-400'
@@ -1172,7 +1170,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
                     : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
                 }`}
               >
-                {sec.label}
+                {localizeText(sec.label, currentLanguage)}
               </button>
             );
           })}

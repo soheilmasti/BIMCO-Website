@@ -26,7 +26,7 @@ export const FloatingContactHub: React.FC<FloatingContactHubProps> = ({
           title={isRTL ? "مشاهده دفترچه تعاملی پورتفولیو معماری BIMCO (ورق‌خور سه بعدی)" : "View BIMCO Interactive Architectural Portfolio (3D Flipbook)"}
         >
           <img src="/brand/logo-symbol-petrol.svg" alt="BIMCO" className="w-5 h-5 object-contain drop-shadow" />
-          <div className={`hidden sm:flex flex-col ${isRTL ? 'text-right' : 'text-left'}`}>
+          <div className={`hidden sm:flex flex-col ${isRTL ? 'text-right' : 'text-start'}`}>
             <span className="text-xs font-black tracking-wide leading-none">{isRTL ? 'پورتفولیو BIMCO' : 'BIMCO Portfolio'}</span>
             <span className="text-[10px] text-amber-200 font-medium leading-none mt-1">{isRTL ? 'دفترچه ورق‌خور ۳D' : 'Interactive 3D Book'}</span>
           </div>
@@ -50,7 +50,7 @@ export const FloatingContactHub: React.FC<FloatingContactHubProps> = ({
 
         <MessageCircle className="w-5 h-5 text-white shrink-0" />
         
-        <div className="hidden sm:flex flex-col text-left">
+        <div className="hidden sm:flex flex-col text-start">
           <span className="text-xs font-black tracking-wide leading-none">WhatsApp</span>
           <span className="text-[10px] text-emerald-100 font-medium leading-none mt-1">Chat Direct</span>
         </div>

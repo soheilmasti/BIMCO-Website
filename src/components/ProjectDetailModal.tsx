@@ -183,10 +183,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
                         <div className="p-2.5 px-3 bg-slate-950/80 flex items-center justify-between text-xs border-t border-slate-800/60">
                           <span className="font-mono text-[11px] font-bold text-blue-300">
-                            {isRTL ? `تصویر ${String(idx + 1).padStart(2, '0')}` : `${localizeText('Image', currentLanguage)} ${String(idx + 1).padStart(2, '0')}`}
+                            {localizeText(isRTL ? `تصویر ${String(idx + 1).padStart(2, '0')}` : `${localizeText('Image', currentLanguage)} ${String(idx + 1).padStart(2, '0')}`, currentLanguage)}
                           </span>
                           <span className="text-[10px] font-mono text-gray-500">
-                            {isRTL ? `از ${currentGallery.length}` : `${localizeText('of', currentLanguage)} ${currentGallery.length}`}
+                            {localizeText(isRTL ? `از ${currentGallery.length}` : `${localizeText('of', currentLanguage)} ${currentGallery.length}`, currentLanguage)}
                           </span>
                         </div>
                       </div>
@@ -242,26 +242,26 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             </div>
 
             {/* Right Architectural Info Sidebar (5 cols) */}
-            <div className={`lg:col-span-5 p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-white ${isRTL ? 'text-right' : 'text-left'}`}>
+            <div className={`lg:col-span-5 p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-white ${isRTL ? 'text-right' : 'text-start'}`}>
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-black text-white">
-                    {getLocalizedStatus(project.status, currentLanguage)}
+                    {localizeText(getLocalizedStatus(project.status, currentLanguage), currentLanguage)}
                   </span>
-                  <span className="text-xs font-mono text-gray-500 font-bold">{project.year}</span>
+                  <span className="text-xs font-mono text-gray-500 font-bold">{localizeText(project.year, currentLanguage)}</span>
                   {project.role && (
                     <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700">
-                      {project.role}
+                      {localizeText(project.role, currentLanguage)}
                     </span>
                   )}
                 </div>
 
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mt-1 leading-tight">
-                  {project.title}
+                  {localizeText(project.title, currentLanguage)}
                 </h2>
                 {isRTL && project.englishTitle ? (
                   <p className="text-xs font-mono text-gray-400 mt-0.5 font-medium">
-                    {project.englishTitle}
+                    {localizeText(project.englishTitle, currentLanguage)}
                   </p>
                 ) : null}
 
@@ -271,14 +271,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     <span className="text-gray-400 block text-[10px] font-medium">{t.location}</span>
                     <span className="font-semibold text-gray-800 flex items-center gap-1 mt-0.5">
                       <MapPin className="w-3.5 h-3.5 text-gray-500 shrink-0" />
-                      <span className="line-clamp-1">{project.location}</span>
+                      <span className="line-clamp-1">{localizeText(project.location, currentLanguage)}</span>
                     </span>
                   </div>
                   <div>
-                    <span className="text-gray-400 block text-[10px] font-medium">{project.portfolioPdfUrl ? getBimCopy(currentLanguage).documentLabel : t.area}</span>
+                    <span className="text-gray-400 block text-[10px] font-medium">{localizeText(project.portfolioPdfUrl ? getBimCopy(currentLanguage).documentLabel : t.area, currentLanguage)}</span>
                     <span className="font-semibold text-gray-800 flex items-center gap-1 mt-0.5">
                       <Maximize2 className="w-3.5 h-3.5 text-gray-500 shrink-0" />
-                      <span>{project.area}</span>
+                      <span>{localizeText(project.area, currentLanguage)}</span>
                     </span>
                   </div>
                   {project.client && (
@@ -286,7 +286,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                       <span className="text-gray-400 block text-[10px] font-medium">{t.client}</span>
                       <span className="font-semibold text-gray-800 flex items-center gap-1 mt-0.5">
                         <UserCheck className="w-3.5 h-3.5 text-gray-500 shrink-0" />
-                        <span>{project.client}</span>
+                        <span>{localizeText(project.client, currentLanguage)}</span>
                       </span>
                     </div>
                   )}
@@ -301,14 +301,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </div>
                     {project.bimSpecs.lodLevel && (
                       <p className="text-[11px] text-blue-800 font-mono">
-                        {localizeText("Level of Development:", currentLanguage)}<strong>{project.bimSpecs.lodLevel}</strong>
+                        {localizeText("Level of Development:", currentLanguage)}<strong>{localizeText(project.bimSpecs.lodLevel, currentLanguage)}</strong>
                       </p>
                     )}
                     {project.bimSpecs.softwareUsed && (
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {project.bimSpecs.softwareUsed.map((soft, sI) => (
                           <span key={sI} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white text-blue-900 border border-blue-200">
-                            {soft}
+                            {localizeText(soft, currentLanguage)}
                           </span>
                         ))}
                       </div>
@@ -323,7 +323,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     <span>{t.concept}</span>
                   </h4>
                   <p className="text-xs text-gray-600 leading-relaxed">
-                    {project.concept}
+                    {localizeText(project.concept, currentLanguage)}
                   </p>
                 </div>
 
@@ -337,7 +337,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                       {project.features.map((feat, i) => (
                         <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>{feat}</span>
+                          <span>{localizeText(feat, currentLanguage)}</span>
                         </div>
                       ))}
                     </div>
@@ -347,8 +347,8 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
               {/* Action Buttons */}
               {project.portfolioPdfUrl && <div className="flex flex-wrap gap-3 mb-4">
-                <a href={project.portfolioPdfUrl} download className="bg-blue-600 text-white px-5 py-3 rounded-2xl font-bold text-sm">{getBimCopy(currentLanguage).download}</a>
-                <a href={project.caseStudyUrl} className="bg-slate-100 text-slate-800 px-5 py-3 rounded-2xl font-bold text-sm">{getBimCopy(currentLanguage).nav}</a>
+                <a href={project.portfolioPdfUrl} download className="bg-blue-600 text-white px-5 py-3 rounded-2xl font-bold text-sm">{localizeText(getBimCopy(currentLanguage).download, currentLanguage)}</a>
+                <a href={project.caseStudyUrl} className="bg-slate-100 text-slate-800 px-5 py-3 rounded-2xl font-bold text-sm">{localizeText(getBimCopy(currentLanguage).nav, currentLanguage)}</a>
               </div>}
               <div className="mt-5 pt-3.5 border-t border-gray-100 flex items-center gap-3">
                 <button
@@ -374,10 +374,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             <div className="flex items-center justify-between pb-3 px-2 text-white z-20">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-xl bg-blue-600 text-white">
-                  {isRTL ? `شیت ${zoomIndex + 1} از ${currentGallery.length}` : `${localizeText('SHEET', currentLanguage)} ${zoomIndex + 1} ${localizeText('of', currentLanguage)} ${currentGallery.length}`}
+                  {localizeText(isRTL ? `شیت ${zoomIndex + 1} از ${currentGallery.length}` : `${localizeText('SHEET', currentLanguage)} ${zoomIndex + 1} ${localizeText('of', currentLanguage)} ${currentGallery.length}`, currentLanguage)}
                 </span>
                 <span className="text-xs text-gray-300 font-bold hidden sm:inline">
-                  {project.title}
+                  {localizeText(project.title, currentLanguage)}
                 </span>
               </div>
               <div className="flex items-center gap-2">

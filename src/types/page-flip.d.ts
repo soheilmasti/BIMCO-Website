@@ -8,6 +8,7 @@ declare module 'page-flip' {
     flip(pageIndex: number): void;
     getCurrentPageIndex(): number;
     getPageCount(): number;
+    getState(): 'read' | 'flipping' | 'fold_corner' | 'user_fold';
     destroy(): void;
     on(event: string, callback: (e: any) => void): void;
     off(event: string, callback: (e: any) => void): void;

@@ -1,0 +1,222 @@
+{
+  "zh": {
+    "nav": "BIM 服务",
+    "eyebrow": "BIMCO / 协调与编程",
+    "title": "清晰的模型，协调一致的决策。",
+    "intro": "为建筑与机电团队提供 BIM 协调和编程支持：检查模型接口、记录问题并自动化重复工作。",
+    "download": "下载作品集",
+    "archive": "浏览项目作品集",
+    "contact": "讨论您的项目",
+    "meta": "13 页 · 英文 · PDF",
+    "servicesTitle": "从模型审核到清晰的交付成果",
+    "services": [
+      [
+        "模型协调",
+        "检查建筑、结构与机电链接模型、管线路径、空间限制和拟议洞口。"
+      ],
+      [
+        "技术文档",
+        "编制协调平面图、剖面图、详图、明细表和模型审核资料。"
+      ],
+      [
+        "问题跟踪与模型质检",
+        "定位问题、记录相关构件和待定事项，并检查修订后的几何与图纸一致性。"
+      ],
+      [
+        "BIM 自动化",
+        "使用 Python、Dynamo、Revit API 和 C#/.NET 开发可重复的模型与数据工作流程。"
+      ]
+    ],
+    "projectTitle": "罗马尼亚 / 架空电气导管协调",
+    "projectIntro": "实际案例：六条馈线路径、支架接口、拟议穿墙位置以及可追溯的图纸成果。",
+    "review": "设计审核资料。结构连接、电气设计与防火封堵方案仍需审批。",
+    "galleryTitle": "来自原始 Revit 模型",
+    "imageLabels": [
+      "协调后的三维模型",
+      "导管路径平面图",
+      "支架协调详图",
+      "问题审核与批注"
+    ],
+    "skillsTitle": "服务于 BIM 工作流程的编程",
+    "evidence": "罗马尼亚项目与 BIM Assist 开发示例：构件查询、参数检查、视图导出、本地服务和技术界面。",
+    "approachTitle": "可追溯的审核流程",
+    "steps": [
+      "审核原始模型与工作范围",
+      "协调接口并记录决策",
+      "检查修订并提交审核资料"
+    ],
+    "finalTitle": "分享您的模型与协调难题。",
+    "finalText": "请说明专业、模型格式、现有问题和预期成果，以明确工作范围。",
+    "documentLabel": "文档",
+    "category": "BIM 协调",
+    "portfolioTitle": "BIM 协调员作品集",
+    "portfolioDescription": "BIM 协调与自动化精选作品：罗马尼亚案例、原始 Revit 视图及编程技能。",
+    "role": "BIM 协调 / 模型审核 / 自动化",
+    "pageTitle": "BIM 协调与自动化 | BIMCO"
+  },
+  "ru": {
+    "nav": "Услуги BIM",
+    "eyebrow": "BIMCO / Координация и код",
+    "title": "Понятные модели. Согласованные решения.",
+    "intro": "BIM-координация и программирование для архитекторов и инженеров: проверка стыков моделей, документирование проблем и автоматизация повторяющихся задач.",
+    "download": "Скачать портфолио",
+    "archive": "Посмотреть портфолио",
+    "contact": "Обсудить проект",
+    "meta": "13 страниц · На английском · PDF",
+    "servicesTitle": "От проверки модели до понятной документации",
+    "services": [
+      [
+        "Координация моделей",
+        "Проверка связанных архитектурных, конструктивных и инженерных моделей, трасс, ограничений пространства и предлагаемых проёмов."
+      ],
+      [
+        "Техническая документация",
+        "Координированные планы, разрезы, узлы, спецификации и материалы проверки на основе модели."
+      ],
+      [
+        "Отслеживание проблем и проверка модели",
+        "Определение проблем, фиксация элементов и необходимых решений, проверка изменений геометрии и чертежей."
+      ],
+      [
+        "Автоматизация BIM",
+        "Разработка процессов Python и Dynamo, инструментов Revit API и надстроек C#/.NET для работы с моделями и данными."
+      ]
+    ],
+    "projectTitle": "Румыния / координация электропроводок под перекрытием",
+    "projectIntro": "Практический пример: шесть трасс питания, сопряжения опор, предлагаемые проходки стен и прослеживаемая документация.",
+    "review": "Материалы для проверки проекта. Крепления, электротехнические решения и противопожарные проходки требуют согласования.",
+    "galleryTitle": "Из исходной модели Revit",
+    "imageLabels": [
+      "Согласованная 3D-модель",
+      "План трасс",
+      "Узел опоры",
+      "Проверка проблем и замечания"
+    ],
+    "skillsTitle": "Программирование для рабочих процессов BIM",
+    "evidence": "Примеры из проекта в Румынии и разработки BIM Assist: запросы элементов, проверка параметров, экспорт видов, локальные сервисы и технические интерфейсы.",
+    "approachTitle": "Прослеживаемый процесс проверки",
+    "steps": [
+      "Проверка исходной модели и объёма работ",
+      "Координация сопряжений и фиксация решений",
+      "Проверка изменений и выпуск материалов"
+    ],
+    "finalTitle": "Расскажите о модели и задачах координации.",
+    "finalText": "Укажите дисциплины, форматы моделей, текущие проблемы и ожидаемые результаты для определения объёма работ.",
+    "documentLabel": "Документ",
+    "category": "BIM-координация",
+    "portfolioTitle": "Портфолио BIM-координатора",
+    "portfolioDescription": "Избранные работы по BIM-координации и автоматизации: проект в Румынии, виды Revit и навыки программирования.",
+    "role": "BIM-координация / проверка модели / автоматизация",
+    "pageTitle": "BIM-координация и автоматизация | BIMCO"
+  },
+  "pt": {
+    "nav": "Serviços BIM",
+    "eyebrow": "BIMCO / Coordenação e código",
+    "title": "Modelos claros. Decisões coordenadas.",
+    "intro": "Coordenação BIM e programação para equipas de arquitetura e instalações: revisão de interfaces, documentação de problemas e automatização de tarefas repetitivas.",
+    "download": "Descarregar portefólio",
+    "archive": "Explorar o portefólio",
+    "contact": "Falar sobre o projeto",
+    "meta": "13 páginas · Inglês · PDF",
+    "servicesTitle": "Da revisão do modelo a entregáveis claros",
+    "services": [
+      [
+        "Coordenação de modelos",
+        "Revisão dos modelos ligados de arquitetura, estruturas e instalações, percursos, restrições espaciais e aberturas propostas."
+      ],
+      [
+        "Documentação técnica",
+        "Plantas coordenadas, cortes, pormenores, mapas e documentação de revisão baseada no modelo."
+      ],
+      [
+        "Problemas e qualidade do modelo",
+        "Localização dos problemas, registo dos elementos e decisões necessárias e verificação das alterações geométricas e dos desenhos."
+      ],
+      [
+        "Automatização BIM",
+        "Processos Python e Dynamo, ferramentas Revit API e suplementos C#/.NET para tarefas repetitivas de modelos e dados."
+      ]
+    ],
+    "projectTitle": "Roménia / coordenação de condutas elétricas suspensas",
+    "projectIntro": "Caso prático: seis percursos de alimentação, interfaces dos suportes, atravessamentos de paredes propostos e documentação rastreável.",
+    "review": "Emissão para revisão do projeto. Fixações estruturais, projeto elétrico e selagens corta-fogo requerem aprovação.",
+    "galleryTitle": "A partir do modelo Revit original",
+    "imageLabels": [
+      "Modelo 3D coordenado",
+      "Planta dos percursos",
+      "Pormenor do suporte",
+      "Revisão de problemas e anotações"
+    ],
+    "skillsTitle": "Programação ao serviço do BIM",
+    "evidence": "Exemplos da Roménia e do desenvolvimento BIM Assist: consultas de elementos, verificação de parâmetros, exportação de vistas, serviços locais e interfaces técnicas.",
+    "approachTitle": "Um processo de revisão rastreável",
+    "steps": [
+      "Rever o modelo de origem e o âmbito",
+      "Coordenar interfaces e registar decisões",
+      "Verificar alterações e emitir a revisão"
+    ],
+    "finalTitle": "Partilhe o modelo e o desafio de coordenação.",
+    "finalText": "Indique especialidades, formatos, problemas atuais e resultados pretendidos para definir o âmbito.",
+    "documentLabel": "Documento",
+    "category": "Coordenação BIM",
+    "portfolioTitle": "Portefólio de coordenação BIM",
+    "portfolioDescription": "Trabalhos de coordenação e automatização BIM: caso da Roménia, vistas Revit originais e programação.",
+    "role": "Coordenação BIM / revisão do modelo / automatização",
+    "pageTitle": "Coordenação e automatização BIM | BIMCO"
+  },
+  "nl": {
+    "nav": "BIM-diensten",
+    "eyebrow": "BIMCO / Coördinatie en code",
+    "title": "Heldere modellen. Afgestemde beslissingen.",
+    "intro": "BIM-coördinatie en programmering voor architectuur- en installatieteams: modelaansluitingen controleren, problemen vastleggen en terugkerende taken automatiseren.",
+    "download": "Portfolio downloaden",
+    "archive": "Projectportfolio bekijken",
+    "contact": "Uw project bespreken",
+    "meta": "13 pagina’s · Engels · PDF",
+    "servicesTitle": "Van modelcontrole naar heldere documenten",
+    "services": [
+      [
+        "Modelcoördinatie",
+        "Gekoppelde architectuur-, constructie- en installatiemodellen, routes, ruimtelijke beperkingen en voorgestelde sparingen controleren."
+      ],
+      [
+        "Technische documentatie",
+        "Gecoördineerde plattegronden, doorsneden, details, staten en modelgebaseerde controledocumenten."
+      ],
+      [
+        "Probleembeheer en modelcontrole",
+        "Problemen lokaliseren, betrokken elementen en vereiste beslissingen vastleggen en gewijzigde geometrie en tekeningen controleren."
+      ],
+      [
+        "BIM-automatisering",
+        "Python- en Dynamo-processen, Revit API-tools en C#/.NET-uitbreidingen voor herhaalbare model- en datataken."
+      ]
+    ],
+    "projectTitle": "Roemenië / coördinatie van elektrische leidingen onder het plafond",
+    "projectIntro": "Praktijkvoorbeeld: zes voedingsroutes, aansluitingen van steunen, voorgestelde muurdoorvoeren en herleidbare tekeningen.",
+    "review": "Uitgave voor ontwerpcontrole. Constructieve bevestigingen, elektrisch ontwerp en brandwerende afdichtingen vereisen goedkeuring.",
+    "galleryTitle": "Uit het oorspronkelijke Revit-model",
+    "imageLabels": [
+      "Gecoördineerd 3D-model",
+      "Leidingenplan",
+      "Steundetail",
+      "Probleemcontrole en opmerkingen"
+    ],
+    "skillsTitle": "Programmeren voor het BIM-proces",
+    "evidence": "Voorbeelden uit Roemenië en BIM Assist: elementen opvragen, parameters controleren, aanzichten exporteren, lokale diensten en technische interfaces.",
+    "approachTitle": "Een herleidbaar controleproces",
+    "steps": [
+      "Bronmodel en werkgebied beoordelen",
+      "Aansluitingen afstemmen en beslissingen vastleggen",
+      "Wijzigingen controleren en documenten uitgeven"
+    ],
+    "finalTitle": "Deel uw model en coördinatievraagstuk.",
+    "finalText": "Geef disciplines, bestandsformaten, huidige problemen en gewenste resultaten door om de opdracht af te bakenen.",
+    "documentLabel": "Document",
+    "category": "BIM-coördinatie",
+    "portfolioTitle": "Portfolio BIM-coördinator",
+    "portfolioDescription": "Geselecteerde BIM-coördinatie en automatisering: Roemeense casus, oorspronkelijke Revit-aanzichten en programmeervaardigheden.",
+    "role": "BIM-coördinatie / modelcontrole / automatisering",
+    "pageTitle": "BIM-coördinatie en automatisering | BIMCO"
+  }
+}

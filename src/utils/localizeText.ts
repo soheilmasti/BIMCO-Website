@@ -5,7 +5,7 @@ const translations = catalog as Record<string, Record<string, string>>;
 
 /** Static translations: changing language never waits on a translation service. */
 export function localizeText(text: string, language: LanguageCode): string {
-  const translated = language === 'en' ? text : translations[language]?.[text] ?? text;
+  const translated = translations[language]?.[text] ?? text;
   return translated.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 }
 

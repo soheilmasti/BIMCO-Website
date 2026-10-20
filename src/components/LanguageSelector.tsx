@@ -42,7 +42,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   };
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-start" ref={dropdownRef}>
       {/* Trigger Button */}
       <button
         type="button"
@@ -67,7 +67,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       {/* Dropdown Menu */}
       {isOpen && (
         <div 
-          className="absolute right-0 mt-2 w-52 rounded-2xl shadow-2xl bg-white/95 backdrop-blur-2xl border border-gray-100/90 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 origin-top-right text-left"
+          className="absolute right-0 mt-2 w-52 rounded-2xl shadow-2xl bg-white/95 backdrop-blur-2xl border border-gray-100/90 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 origin-top-right text-start"
           dir="ltr"
         >
           <div className="px-3 py-1.5 text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100 flex items-center justify-between">
@@ -91,9 +91,9 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="text-base leading-none">{lang.flag}</span>
-                    <div className="text-left">
+                    <div className="text-start">
                       <div className="text-xs font-bold leading-tight">{lang.nativeName}</div>
-                      <div className="text-[10px] text-gray-400 font-sans">{lang.name}</div>
+                      <div className="text-[10px] text-gray-400 font-sans">{localizeText(lang.name, currentLanguage)}</div>
                     </div>
                   </div>
 

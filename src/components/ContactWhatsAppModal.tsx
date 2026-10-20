@@ -1,5 +1,5 @@
 import { localizeText } from '../utils/localizeText';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
@@ -32,6 +32,17 @@ export const ContactWhatsAppModal: React.FC<ContactWhatsAppModalProps> = ({
   initialMessage
 }) => {
   const [customMessage, setCustomMessage] = useState(initialMessage || '');
+
+  useEffect(() => {
+    if (isOpen) setCustomMessage(localizeText(initialMessage || '', currentLanguage));
+  }, [initialMessage, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -70,6 +81,7 @@ export const ContactWhatsAppModal: React.FC<ContactWhatsAppModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           dir={isRTL ? 'rtl' : 'ltr'}
+          role="dialog" aria-modal="true" aria-label={localizeText("Contact", currentLanguage)}
           className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/90 my-auto p-6 sm:p-8"
         >
           {/* Close Button */}
@@ -125,14 +137,14 @@ export const ContactWhatsAppModal: React.FC<ContactWhatsAppModalProps> = ({
                 <button
                   key={idx}
                   onClick={() => handleSend(tmpl.text)}
-                  className="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition-all flex items-center justify-between group cursor-pointer"
+                  className="w-full text-start p-3.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition-all flex items-center justify-between group cursor-pointer"
                 >
                   <div className="pr-3">
                     <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 block">
-                      {tmpl.title}
+                      {localizeText(tmpl.title, currentLanguage)}
                     </span>
                     <span className="text-[11px] text-slate-500 block mt-0.5">
-                      {tmpl.desc}
+                      {localizeText(tmpl.desc, currentLanguage)}
                     </span>
                   </div>
                   <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center shrink-0 transition-colors">

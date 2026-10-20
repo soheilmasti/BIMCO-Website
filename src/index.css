@@ -130,3 +130,28 @@ video::-webkit-media-controls-enclosure {
   .mobile-toolbar { max-width: calc(100vw - max(0.75rem, env(safe-area-inset-left)) - max(0.75rem, env(safe-area-inset-right))); }
   .language-options button { min-height: 44px; }
 }
+
+/* Interior pages share the home palette, typography and tactile controls. */
+.bimco-content { --bimco-ink: #111827; --bimco-accent: #2563eb; }
+.bimco-content :where(p, li, dd) { overflow-wrap: anywhere; line-height: 1.8; }
+.bimco-content :is(h1, h2, h3, h4) { text-wrap: balance; overflow-wrap: break-word; line-height: 1.5; }
+.bimco-content :where(button, a, label) { overflow-wrap: break-word; }
+.bimco-content :where(.grid > *, .flex > div) { min-width: 0; }
+html[lang="fa"] .bimco-content :is(h1, h2, h3, h4) { line-height: 1.65; letter-spacing: 0; }
+html[lang="fa"] .bimco-content :where(p, li, dd) { line-height: 2; }
+html[lang="fa"] .font-mono { font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif; letter-spacing: 0; }
+[dir="ltr"] { unicode-bidi: isolate; }
+:where(button, a, input, select, textarea):focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bimco-content *, .bimco-content *::before, .bimco-content *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+html[dir="rtl"] :where(.bimco-content, .bimco-book) :where(.lucide-arrow-right, .lucide-chevron-right, .lucide-chevron-left) { transform: rotate(180deg); }
+@media (max-width: 640px) {
+  .bimco-content p.text-xs { font-size: .8125rem; }
+}
+
+@media (max-width: 1279px) {
+  .bimco-book header button, .bimco-book header a { min-height: 40px; }
+}

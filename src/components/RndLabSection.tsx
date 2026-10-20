@@ -103,9 +103,9 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
 
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white leading-tight">
             {isRTL ? (
-              <>توسعه ابزارهای اختصاصی، پلاگین‌های <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Revit</span> و الگوریتم‌های هوش مصنوعی</>
+              <>{localizeText("توسعه ابزارهای اختصاصی، پلاگین‌های", currentLanguage)}{' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">{localizeText("Revit", currentLanguage)}</span> {' '}{localizeText("و الگوریتم‌های هوش مصنوعی", currentLanguage)}</>
             ) : (
-              <>{localizeText("Custom", currentLanguage)}<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">{localizeText("Revit API Plugins", currentLanguage)}</span>{localizeText(", Dynamo Workflows &amp; AI Algorithms", currentLanguage)}</>
+              <>{localizeText("Custom", currentLanguage)}{' '}<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">{localizeText("Revit API Plugins", currentLanguage)}</span>{localizeText(", Dynamo Workflows &amp; AI Algorithms", currentLanguage)}</>
             )}
           </h2>
 
@@ -153,7 +153,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
               }`}
             >
               <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-blue-500'}`} />
-              <span>{cat.label}</span>
+              <span>{localizeText(cat.label, currentLanguage)}</span>
               {cat.id === 'all' && (
                 <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${
                   isSelected ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-600'
@@ -179,7 +179,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-mono text-[11px] font-bold border border-blue-200/70">
                     <Terminal className="w-3 h-3 text-blue-600" />
-                    <span>{isRTL ? post.categoryLabelFa : localizeContent(post.categoryLabel, currentLanguage)}</span>
+                    <span>{localizeText(isRTL ? post.categoryLabelFa : localizeContent(post.categoryLabel, currentLanguage), currentLanguage)}</span>
                   </span>
 
                   <div className="flex items-center gap-2">
@@ -190,29 +190,29 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                         ? 'bg-blue-50 text-blue-700 border border-blue-200'
                         : 'bg-purple-50 text-purple-700 border border-purple-200'
                     }`}>
-                      {isRTL ? post.statusFa : localizeContent(post.status, currentLanguage)}
+                      {localizeText(isRTL ? post.statusFa : localizeContent(post.status, currentLanguage), currentLanguage)}
                     </span>
-                    <span className="text-[11px] font-mono text-gray-500 font-semibold">{post.version}</span>
+                    <span className="text-[11px] font-mono text-gray-500 font-semibold">{localizeText(post.version, currentLanguage)}</span>
                   </div>
                 </div>
 
                 {/* Title */}
                 <h3 className="text-base sm:text-lg font-black text-gray-900 leading-snug group-hover:text-blue-600 transition-colors">
-                  {isRTL ? post.titleFa : localizeContent(post.title, currentLanguage)}
+                  {localizeText(isRTL ? post.titleFa : localizeContent(post.title, currentLanguage), currentLanguage)}
                 </h3>
 
                 {/* Summary */}
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  {isRTL ? post.summaryFa : localizeContent(post.summary, currentLanguage)}
+                  {localizeText(isRTL ? post.summaryFa : localizeContent(post.summary, currentLanguage), currentLanguage)}
                 </p>
 
                 {/* Performance Metrics Badges */}
                 <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">
                   {post.metrics.map((m, idx) => (
                     <div key={idx} className="text-center">
-                      <div className="text-xs sm:text-sm font-black text-blue-600">{m.value}</div>
+                      <div className="text-xs sm:text-sm font-black text-blue-600">{localizeText(m.value, currentLanguage)}</div>
                       <div className="text-[10px] text-gray-600 truncate font-medium">
-                        {isRTL ? m.labelFa : localizeContent(m.label, currentLanguage)}
+                        {localizeText(isRTL ? m.labelFa : localizeContent(m.label, currentLanguage), currentLanguage)}
                       </div>
                     </div>
                   ))}
@@ -225,7 +225,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                       key={idx}
                       className="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-[10px] font-mono font-medium"
                     >
-                      {tech}
+                      {localizeText(tech, currentLanguage)}
                     </span>
                   ))}
                 </div>
@@ -275,7 +275,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
 
       {/* R&D Idea Collaboration Banner */}
       <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
-        <div className="space-y-1 text-center sm:text-left">
+        <div className="space-y-1 text-center sm:text-start">
           <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold text-cyan-300 font-mono">
             <Zap className="w-4 h-4 text-cyan-400" />
             <span>{localizeText("HAVE A CUSTOM BIM TOOL OR RESEARCH IDEA?", currentLanguage)}</span>
@@ -313,15 +313,15 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 text-xs font-mono font-bold">
-                    {isRTL ? activePost.categoryLabelFa : localizeContent(activePost.categoryLabel, currentLanguage)}
+                    {localizeText(isRTL ? activePost.categoryLabelFa : localizeContent(activePost.categoryLabel, currentLanguage), currentLanguage)}
                   </span>
                   <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs font-mono font-bold">
-                    {isRTL ? activePost.statusFa : localizeContent(activePost.status, currentLanguage)}
+                    {localizeText(isRTL ? activePost.statusFa : localizeContent(activePost.status, currentLanguage), currentLanguage)}
                   </span>
-                  <span className="text-xs font-mono text-gray-500 font-semibold">{activePost.version}</span>
+                  <span className="text-xs font-mono text-gray-500 font-semibold">{localizeText(activePost.version, currentLanguage)}</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-gray-900">
-                  {isRTL ? activePost.titleFa : localizeContent(activePost.title, currentLanguage)}
+                  {localizeText(isRTL ? activePost.titleFa : localizeContent(activePost.title, currentLanguage), currentLanguage)}
                 </h2>
               </div>
 
@@ -340,8 +340,8 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
             <div className="grid grid-cols-3 gap-3 bg-slate-900 text-white p-4 rounded-2xl">
               {activePost.metrics.map((m, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-base sm:text-xl font-black text-cyan-400">{m.value}</div>
-                  <div className="text-[11px] text-slate-300 font-medium">{isRTL ? m.labelFa : localizeContent(m.label, currentLanguage)}</div>
+                  <div className="text-base sm:text-xl font-black text-cyan-400">{localizeText(m.value, currentLanguage)}</div>
+                  <div className="text-[11px] text-slate-300 font-medium">{localizeText(isRTL ? m.labelFa : localizeContent(m.label, currentLanguage), currentLanguage)}</div>
                 </div>
               ))}
             </div>
@@ -353,7 +353,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                   {localizeText("⚠️ Architectural Challenge", currentLanguage)}
                 </h4>
                 <p className="text-xs text-amber-950 leading-relaxed">
-                  {isRTL ? activePost.challengeFa : localizeContent(activePost.challenge, currentLanguage)}
+                  {localizeText(isRTL ? activePost.challengeFa : localizeContent(activePost.challenge, currentLanguage), currentLanguage)}
                 </p>
               </div>
 
@@ -362,7 +362,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                   {localizeText("💡 Algorithmic Solution", currentLanguage)}
                 </h4>
                 <p className="text-xs text-emerald-950 leading-relaxed">
-                  {isRTL ? activePost.solutionFa : localizeContent(activePost.solution, currentLanguage)}
+                  {localizeText(isRTL ? activePost.solutionFa : localizeContent(activePost.solution, currentLanguage), currentLanguage)}
                 </p>
               </div>
             </div>
@@ -376,7 +376,7 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                 {(isRTL ? activePost.keyFeaturesFa : localizeContent(activePost.keyFeatures, currentLanguage)).map((feat, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs text-gray-700 bg-gray-50 p-2.5 rounded-xl border border-gray-200/60">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{feat}</span>
+                    <span>{localizeText(feat, currentLanguage)}</span>
                   </div>
                 ))}
               </div>
@@ -388,18 +388,18 @@ export const RndLabSection: React.FC<RndLabSectionProps> = ({
                 <div className="flex items-center justify-between text-xs text-slate-400 font-mono bg-slate-950 px-4 py-2 rounded-t-xl border-b border-slate-800">
                   <div className="flex items-center gap-2">
                     <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                    <span className="text-slate-200 font-bold">{activePost.codeSnippet.filename}</span>
+                    <span className="text-slate-200 font-bold">{localizeText(activePost.codeSnippet.filename, currentLanguage)}</span>
                   </div>
                   <button
                     onClick={() => handleCopyCode(activePost.codeSnippet!.code)}
                     className="flex items-center gap-1.5 text-[11px] text-cyan-300 hover:text-white transition-colors cursor-pointer"
                   >
                     {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedCode ? 'Copied!' : 'Copy Code'}</span>
+                    <span>{localizeText(copiedCode ? 'Copied!' : 'Copy Code', currentLanguage)}</span>
                   </button>
                 </div>
                 <pre className="bg-slate-900 text-slate-200 p-4 rounded-b-xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800">
-                  <code>{activePost.codeSnippet.code}</code>
+                  <code>{localizeText(activePost.codeSnippet.code, currentLanguage)}</code>
                 </pre>
               </div>
             )}

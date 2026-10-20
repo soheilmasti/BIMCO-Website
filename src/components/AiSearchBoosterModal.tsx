@@ -114,9 +114,9 @@ export const AiSearchBoosterModal: React.FC<AiSearchBoosterModalProps> = ({
               <div key={idx} className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition-all">
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-black text-slate-900">{item.title}</span>
+                    <span className="text-xs font-black text-slate-900">{localizeText(item.title, currentLanguage)}</span>
                     <span className="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">
-                      {item.category}
+                      {localizeText(item.category, currentLanguage)}
                     </span>
                   </div>
 
@@ -139,7 +139,7 @@ export const AiSearchBoosterModal: React.FC<AiSearchBoosterModalProps> = ({
                 </div>
 
                 <p className="text-xs text-slate-600 font-mono bg-white p-3 rounded-xl border border-slate-200/60 mb-3 select-all">
-                  "{item.prompt}"
+                  "{localizeText(item.prompt, currentLanguage)}"
                 </p>
 
                 <div className="flex items-center gap-2">

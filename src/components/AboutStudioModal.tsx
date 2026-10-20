@@ -38,7 +38,7 @@ export const AboutStudioModal: React.FC<AboutStudioModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           dir={isRTL ? 'rtl' : 'ltr'}
-          className={`relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/90 my-auto ${isRTL ? 'text-right' : 'text-left'} p-6 sm:p-8`}
+          className={`relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/90 my-auto ${isRTL ? 'text-right' : 'text-start'} p-6 sm:p-8`}
         >
           <button
             onClick={onClose}

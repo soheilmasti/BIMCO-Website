@@ -232,7 +232,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Content by Active View */}
-      <main className="w-full h-full">
+      <main className={`w-full h-full ${settings.activeView !== '3d' ? 'bimco-content' : ''}`}>
         {settings.activeView === 'grid' && (
           <MasterIndexView
             categories={archiveCategories}

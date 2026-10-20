@@ -85,7 +85,7 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           dir={isRTL ? 'rtl' : 'ltr'}
-          className={`relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/90 my-auto ${isRTL ? 'text-right' : 'text-left'}`}
+          className={`relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/90 my-auto ${isRTL ? 'text-right' : 'text-start'}`}
         >
           {/* Modal Header */}
           <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/70">
@@ -173,7 +173,7 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                         </span>
                         <div>
                           <p className="text-xs font-bold">{c.title.split(' ')[0]}</p>
-                          <p className="text-[10px] font-mono opacity-60">{c.projects.length} پروژه</p>
+                          <p className="text-[10px] font-mono opacity-60">{c.projects.length} {' '}{localizeText("پروژه", currentLanguage)}</p>
                         </div>
                       </div>
                     </button>
@@ -185,9 +185,9 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="text-sm font-bold text-gray-900">
-                        تنظیمات ساختمان: {currentCat.title}
+                        {' '}{localizeText("تنظیمات ساختمان:", currentLanguage)}{' '}{localizeText(currentCat.title, currentLanguage)}
                       </h4>
-                      <p className="text-xs font-mono text-gray-400">{currentCat.englishTitle}</p>
+                      <p className="text-xs font-mono text-gray-400">{localizeText(currentCat.englishTitle, currentLanguage)}</p>
                     </div>
                     <span className="font-mono text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-700 rounded-lg">
                       {localizeText("POS:", currentLanguage)}{currentCat.position.x}% , {currentCat.position.y}%
@@ -270,8 +270,7 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                     className="w-full px-4 py-2.5 rounded-2xl text-xs border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black bg-gray-50 font-mono"
                   />
                   <p className="text-[11px] text-gray-500 mt-2">
-                    می‌توانید عکس رندر ماکت سفید یا تصویر هوایی خود را قرار دهید. دکمه‌های ساختمان‌ها روی آن قرار می‌گیرند.
-                  </p>
+                    {' '}{localizeText("می‌توانید عکس رندر ماکت سفید یا تصویر هوایی خود را قرار دهید. دکمه‌های ساختمان‌ها روی آن قرار می‌گیرند.", currentLanguage)}{' '}</p>
                 </div>
 
                 {/* Background Preview */}
@@ -283,8 +282,7 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
                     <span className="glass-panel px-4 py-2 rounded-2xl text-xs font-bold text-black shadow-md">
-                      پیش‌نمایش تصویر پس‌زمینه
-                    </span>
+                      {' '}{localizeText("پیش‌نمایش تصویر پس‌زمینه", currentLanguage)}{' '}</span>
                   </div>
                 </div>
               </div>
@@ -302,7 +300,7 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-black text-white hover:bg-gray-800 transition-colors"
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copied ? t.customizerModal.copied : t.customizerModal.copyJson}
+                      {localizeText(copied ? t.customizerModal.copied : t.customizerModal.copyJson, currentLanguage)}
                     </button>
                     <button
                       onClick={handleDownloadJSON}
@@ -314,8 +312,8 @@ export const AssetCustomizerModal: React.FC<AssetCustomizerModalProps> = ({
                   </div>
                 </div>
 
-                <pre className="p-4 rounded-2xl bg-gray-950 text-gray-100 text-[11px] font-mono overflow-x-auto max-h-80 border border-gray-800 dir-ltr text-left">
-                  {JSON.stringify({ settings, categories }, null, 2)}
+                <pre className="p-4 rounded-2xl bg-gray-950 text-gray-100 text-[11px] font-mono overflow-x-auto max-h-80 border border-gray-800 dir-ltr text-start">
+                  {localizeText(JSON.stringify({ settings, categories }, null, 2), currentLanguage)}
                 </pre>
               </div>
             )}
