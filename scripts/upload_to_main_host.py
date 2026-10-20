@@ -40,7 +40,7 @@ def collect_files():
             rel_path = os.path.relpath(full_path, LOCAL_DIR).replace("\\", "/")
             
             # Prioritize index.html, assets, team, manifests
-            if rel_path == "index.html" or rel_path.startswith("assets/") or rel_path.startswith("team/") or "manifest" in rel_path:
+            if rel_path == "index.html" or rel_path.startswith("assets/") or rel_path.startswith("team/") or rel_path.startswith("portfolios/") or "manifest" in rel_path:
                 priority_files.append((full_path, rel_path))
             else:
                 other_files.append((full_path, rel_path))
