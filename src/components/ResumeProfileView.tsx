@@ -34,7 +34,7 @@ export const ResumeProfileView: React.FC<ResumeProfileViewProps> = ({
   const resume = { ...baseResume, competencies: [...baseResume.competencies, { category: getBimCopy(currentLanguage).skillsTitle, skills: ['Python', 'Dynamo / Revit API', 'C# / .NET', 'FastAPI / WebSockets', 'HTML / CSS / JavaScript', 'JSON / CSV'] }] };
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#f3f0e8] pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Back to Portfolio Button */}
       <div className="mb-6">
         <button

@@ -71,7 +71,7 @@ export const BimOutsourcingSection: React.FC<BimOutsourcingSectionProps> = ({
   const formattedSavings = `${currencySymbol}${totalSavings.toLocaleString(language)}`;
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#f3f0e8] text-slate-900 pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto selection:bg-blue-600 selection:text-white" dir={isRTL ? 'rtl' : 'ltr'}>
       
       {/* Header Navigation & Breadcrumb */}
       <div className="flex items-center justify-between py-4 border-b border-slate-200 mb-8">

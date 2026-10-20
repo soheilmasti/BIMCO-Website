@@ -19,3 +19,9 @@ Validation:
 - Original native project imagery, portfolio PDF and the PDF's English document content remain unchanged. Official software names, standards, identifiers and proper names retain their published spelling.
 
 Production hosting has not been modified. Upload the contents of the prepared update archive using the existing Apache hosting workflow. Preserve existing host configuration and assets. The GitHub branch is `codex/bim-coordinator-portfolio`.
+
+## Old-money color system
+
+All interface color families now share an ivory, forest green, muted navy, warm charcoal and antique gold palette defined in `oldMoneyTheme.js`. Tailwind opacity, hover, border and gradient variants inherit the same palette. Neutral/clay and architectural theme tokens match the warm page backgrounds. Status red uses muted burgundy. Native portfolio images and technical model materials retain their original colors.
+
+Validation: production build passed; seven main views checked at 390px and 1440px (14 checks), plus portfolio book screenshots at both sizes. No runtime errors or horizontal overflow. Primary button contrast is 7.28:1, body text 6.51:1, and gold text 5.31:1 against the ivory card color. Home/3D scene geometry and camera behavior are unchanged.

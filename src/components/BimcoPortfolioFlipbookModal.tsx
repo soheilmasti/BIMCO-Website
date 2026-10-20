@@ -900,7 +900,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
   return (
     <div 
       role="dialog" aria-modal="true" aria-label={volLocalized.title}
-      className="bimco-book fixed inset-0 z-[100] flex flex-col bg-[#080c12]/98 backdrop-blur-2xl text-slate-100 select-none overflow-hidden"
+      className="bimco-book fixed inset-0 z-[100] flex flex-col bg-[#151f19]/98 backdrop-blur-2xl text-slate-100 select-none overflow-hidden"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* 1. TOP HEADER & STUDIO IDENTITY */}
@@ -1096,7 +1096,7 @@ export const BimcoPortfolioFlipbookModal: React.FC<BimcoPortfolioFlipbookModalPr
       <main 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="flex-1 relative flex items-center justify-center p-2 sm:p-4 overflow-hidden touch-pan-y bg-[#0a0e14]"
+        className="flex-1 relative flex items-center justify-center p-2 sm:p-4 overflow-hidden touch-pan-y bg-[#18251d]"
       >
         {/* Navigation Chevron Left */}
         <button

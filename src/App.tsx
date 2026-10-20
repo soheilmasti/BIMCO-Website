@@ -210,7 +210,7 @@ export const App: React.FC = () => {
 
   return (
     <div 
-      className="relative min-h-screen bg-[#f5f6f8] text-gray-900 font-sans select-none overflow-x-hidden"
+      className="relative min-h-screen bg-[#f3f0e8] text-gray-900 font-sans select-none overflow-x-hidden"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       {/* Top Header with Language Selector & Mobile View Navigation (Hidden on Video Intro) */}

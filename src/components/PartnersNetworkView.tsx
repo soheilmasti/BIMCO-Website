@@ -220,7 +220,7 @@ export const PartnersNetworkView: React.FC<PartnersNetworkViewProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] text-gray-900 pt-20 pb-28 px-4 sm:px-6 lg:px-12 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#f3f0e8] text-gray-900 pt-20 pb-28 px-4 sm:px-6 lg:px-12 selection:bg-blue-600 selection:text-white">
       <div className="max-w-6xl mx-auto space-y-12">
 
         {/* Top Breadcrumb & Return to Maquette */}

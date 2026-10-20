@@ -10,8 +10,8 @@
   html {
     font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
-    background-color: #f5f6f8;
-    color: #111827;
+    background-color: #f3f0e8;
+    color: #232d25;
   }
 
   /* Custom Minimalist Scrollbar */
@@ -20,14 +20,14 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #f1f2f4;
+    background: #f1eee5;
   }
   ::-webkit-scrollbar-thumb {
-    background: #d1d5db;
+    background: #cdc5b4;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: #a99f8b;
   }
 }
 
@@ -47,14 +47,14 @@
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 253, 248, 0.90);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .glass-panel-dark {
-  background: rgba(17, 24, 39, 0.85);
+  background: rgba(25, 47, 37, 0.90);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -132,7 +132,7 @@ video::-webkit-media-controls-enclosure {
 }
 
 /* Interior pages share the home palette, typography and tactile controls. */
-.bimco-content { --bimco-ink: #111827; --bimco-accent: #2563eb; }
+.bimco-content { --bimco-ink: #232d25; --bimco-accent: #365e43; }
 .bimco-content :where(p, li, dd) { overflow-wrap: anywhere; line-height: 1.8; }
 .bimco-content :is(h1, h2, h3, h4) { text-wrap: balance; overflow-wrap: break-word; line-height: 1.5; }
 .bimco-content :where(button, a, label) { overflow-wrap: break-word; }
@@ -141,7 +141,7 @@ html[lang="fa"] .bimco-content :is(h1, h2, h3, h4) { line-height: 1.65; letter-s
 html[lang="fa"] .bimco-content :where(p, li, dd) { line-height: 2; }
 html[lang="fa"] .font-mono { font-family: 'Vazirmatn', 'Inter', system-ui, sans-serif; letter-spacing: 0; }
 [dir="ltr"] { unicode-bidi: isolate; }
-:where(button, a, input, select, textarea):focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+:where(button, a, input, select, textarea):focus-visible { outline: 3px solid #9b7d3c; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .bimco-content *, .bimco-content *::before, .bimco-content *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

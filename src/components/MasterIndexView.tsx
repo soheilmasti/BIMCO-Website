@@ -117,7 +117,7 @@ export const MasterIndexView: React.FC<MasterIndexViewProps> = ({
   const currentZoomSheet = zoomSheetIndex !== null ? individualSheets[zoomSheetIndex] : null;
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#f3f0e8] pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Top Title & Filters Bar */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
